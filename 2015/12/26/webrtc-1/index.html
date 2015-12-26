@@ -1,0 +1,311 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>webrtc-1 | Memo</title>
+  <meta name="author" content="akinori nakajima">
+  
+  <meta name="description" content="#algorithm
+introduction to video coding
+#apiWebRTC 1.0: Real-time Communication Between Browsers W3C Editor’s Draft 22 December 2015
+Media Capture and">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="webrtc-1"/>
+  <meta property="og:site_name" content="Memo"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/blog/favicon.png" rel="icon">
+  <link rel="alternate" href="/blog/atom.xml" title="Memo" type="application/atom+xml">
+  <link rel="stylesheet" href="/blog/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+
+</head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/blog/">Memo</a></h1>
+  <h2><a href="/blog/"></a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">Home</a></li>
+    
+      <li><a href="/archives">Archives</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div></header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2015-12-26T12:54:58.000Z"><a href="/blog/2015/12/26/webrtc-1/">2015-12-26</a></time>
+      
+      
+  
+    <h1 class="title">webrtc-1</h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>#algorithm</p>
+<p><a href="http://people.xiph.org/~tterribe/pubs/lca2012/auckland/intro_to_video1.pdf" target="_blank" rel="external">introduction to video coding</a></p>
+<p>#api<br><a href="http://w3c.github.io/webrtc-pc/" target="_blank" rel="external">WebRTC 1.0: Real-time Communication Between Browsers W3C Editor’s Draft 22 December 2015</a></p>
+<p><a href="http://w3c.github.io/mediacapture-main/" target="_blank" rel="external">Media Capture and Streams W3C Editor’s Draft 23 December 2015</a></p>
+<p>#siginaling server<br><a href="http://blog.sogilis.com/post/87085010136/how-to-tcp-nat-traversal-using-nodejs-and-a-stun" target="_blank" rel="external">How To TCP NAT Traversal using Node.js and a STUN Server</a></p>
+<p><a href="http://wiki.coffee0101.com/wiki/Cjdns" target="_blank" rel="external">cjdns</a></p>
+<p><a href="http://stackoverflow.com/questions/1593946/what-is-af-inet-and-why-do-i-need-it" target="_blank" rel="external">What is AF_INET, and why do I need it?</a></p>
+<p>#ortc<br><a href="http://openpeer.org/" target="_blank" rel="external">openpeer</a></p>
+<p><a href="http://ortc.org/" target="_blank" rel="external">ortc.org</a></p>
+<p><a href="http://ortc.org/wp-content/uploads/2014/04/ortc.html" target="_blank" rel="external">Object RTC (ORTC) API for WebRTC</a></p>
+<p><a href="http://www.infoq.com/news/2014/08/ortc-webrtc" target="_blank" rel="external">ORTC and the Future of WebRTC</a></p>
+<p><a href="http://jxck.hatenablog.com/entry/ortc-to-webrtcnv" target="_blank" rel="external">ORTC が切り開く SVC サイマルキャストと WebRTC NV</a></p>
+<p><a href="https://blogs.windows.com/msedgedev/2015/09/18/ortc-api-is-now-available-in-microsoft-edge/" target="_blank" rel="external">ORTC API is now available in Microsoft Edge</a></p>
+<p><a href="https://webrtchacks.com/ortc-edge-microsoft-qa/" target="_blank" rel="external">webrtcH4cKS: ~ Microsoft’s ORTC Edge for WebRTC – Q&amp;A with Bernard Aboba</a></p>
+<p>#codec video<br><a href="http://www.winxdvd.com/blog/avc.htm" target="_blank" rel="external">AVCビデオとは何ですか</a></p>
+<p><a href="https://xiph.org/daala/" target="_blank" rel="external">daala</a></p>
+<p><a href="https://github.com/cisco/thor" target="_blank" rel="external">thor</a></p>
+<p><a href="http://blogs.cisco.com/collaboration/world-meet-thor-a-project-to-hammer-out-a-royalty-free-video-codec" target="_blank" rel="external">cisco blog thor</a></p>
+<p><a href="https://en.wikipedia.org/wiki/High_Efficiency_Video_Coding" target="_blank" rel="external">wiki HEVC</a></p>
+<p><a href="https://en.wikipedia.org/wiki/Video_Coding_Experts_Group" target="_blank" rel="external">wiki Video Coding Experts Group</a></p>
+<p>#codec audio<br><a href="https://ja.wikipedia.org/wiki/Vorbis" target="_blank" rel="external">Vorbis</a></p>
+<p>#general</p>
+<p><a href="https://webrtc.org/" target="_blank" rel="external">webrtc.org</a></p>
+<p><a href="https://bugs.chromium.org/p/webrtc/issues/list" target="_blank" rel="external">bugs.chromium.org</a></p>
+<p><a href="https://chromium-build.appspot.com/p/chromium/console" target="_blank" rel="external">chromium-build.appspot.com</a></p>
+<p><a href="https://webrtchacks.com/about/" target="_blank" rel="external">webrtchacks</a></p>
+<p><a href="https://datatracker.ietf.org/wg/rtcweb/documents/" target="_blank" rel="external">IETF Real-Time Communication in WEB-browsers (rtcweb)</a></p>
+<p><a href="http://www.im-net.org/sp/xmpp/" target="_blank" rel="external">xmpp beginner</a></p>
+<p><a href="https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API" target="_blank" rel="external">MDN webrtc API</a></p>
+<p><a href="http://iswebrtcreadyyet.com/" target="_blank" rel="external">WEBRTC browser support</a></p>
+<p><a href="https://www.terena.org/activities/tf-webrtc/meeting2/slides/20150519-webrtc-identity.pdf" target="_blank" rel="external">WEBRTC identity</a></p>
+<p><a href="http://www.w3.org/2011/04/webrtc/" target="_blank" rel="external">Web Real-Time Communications Working Group</a></p>
+<p><a href="http://www.programmableweb.com/news/what-developers-should-know-about-ortc-versus-webrtc/analysis/2015/10/12" target="_blank" rel="external">What Developers Should Know About ORTC Versus WebRTC</a></p>
+<p><a href="http://blog.schertz.name/2012/07/video-interoperability-in-lync-2013/" target="_blank" rel="external">Video Interoperability in Lync 2013</a></p>
+<p><a href="https://bloggeek.me/ortc-webrtc/" target="_blank" rel="external">What is ORTC: A WebRTC Competitor, WebRTC 2.0 or WebRTC 1.1?</a></p>
+<p>#service</p>
+<p><a href="http://www.addlive.com/" target="_blank" rel="external">addlive</a></p>
+<p><a href="https://bloggeek.me/addlive-interview/" target="_blank" rel="external">addlive ceo interview january 10,2013</a></p>
+<p><a href="https://www.snapchat.com/" target="_blank" rel="external">snapchat</a></p>
+<p><a href="https://tokbox.com/" target="_blank" rel="external">tokbox</a></p>
+<p><a href="http://www.sightcall.com/about/" target="_blank" rel="external">SightCall</a></p>
+<p><a href="https://www.browsetel.com/" target="_blank" rel="external">browsetel</a></p>
+<p><a href="http://www.dialogic.com/" target="_blank" rel="external">dialogic</a></p>
+<p><a href="http://www.callstats.io/" target="_blank" rel="external">callstats</a></p>
+<p><a href="http://www.doublerobotics.com/" target="_blank" rel="external">doublerobotics</a></p>
+<p><a href="https://www.crunchbase.com/organization/romotive#/entity" target="_blank" rel="external">romotive</a></p>
+<p><a href="http://www.esna.com/index.html#" target="_blank" rel="external">esna</a></p>
+<p><a href="https://kobra.io/#/" target="_blank" rel="external">kobra.io</a></p>
+<p><a href="https://html5experts.jp/yusuke-naka/1130/" target="_blank" rel="external">WebRTCで注目された海外企業のサービス19本一挙公開</a></p>
+<p>#aquisition</p>
+<p><a href="http://tropo.acrossway.com/method/top" target="_blank" rel="external">tropo</a></p>
+<p><a href="https://screenhero.com/login/" target="_blank" rel="external">screenhero</a></p>
+<p><a href="https://www.youtube.com/watch?v=5BOAArc7vfM" target="_blank" rel="external">screenhero demo</a></p>
+<p><a href="https://jitsi.org/Projects/JitsiVideobridge" target="_blank" rel="external">jitsi</a></p>
+<p>#rfc<br><a href="https://tools.ietf.org/html/rfc5389" target="_blank" rel="external">RFC3489 Session Traversal Utilities for NAT (STUN)</a></p>
+<p><a href="https://tools.ietf.org/html/rfc4566" target="_blank" rel="external">RFC4566 SDP: Session Description Protocol</a></p>
+<p><a href="https://tools.ietf.org/html/rfc4960" target="_blank" rel="external">RFC4960 Stream Control Transmission Protocol</a></p>
+<p><a href="https://tools.ietf.org/html/rfc5780" target="_blank" rel="external">RFC5780 NAT Behavior Discovery Using Session Traversal Utilities for NAT (STUN)</a></p>
+<p><a href="http://tools.ietf.org/html/rfc5766" target="_blank" rel="external">RFC5766 Traversal Using Relays around NAT (TURN): Relay Extensions to Session Traversal Utilities for NAT (STUN)</a></p>
+<p><a href="https://tools.ietf.org/html/rfc5389" target="_blank" rel="external">RFC5389 Session Traversal Utilities for NAT (STUN)</a></p>
+<p><a href="https://tools.ietf.org/html/rfc6062" target="_blank" rel="external">RFC6062 Traversal Using Relays around NAT (TURN) Extensions for TCP Allocations</a></p>
+<p><a href="https://tools.ietf.org/html/rfc7065" target="_blank" rel="external">RFC7065 Traversal Using Relays around NAT (TURN) Uniform Resource Identifiers</a></p>
+<p><a href="https://tools.ietf.org/html/rfc6156" target="_blank" rel="external">RFC6156 Traversal Using Relays around NAT (TURN) Extension for IPv6</a></p>
+<p><a href="https://tools.ietf.org/html/rfc4347" target="_blank" rel="external">RFC4347 Datagram Transport Layer Security</a></p>
+<p><a href="https://tools.ietf.org/html/rfc5246" target="_blank" rel="external">RFC5246 The Transport Layer Security (TLS) Protocol</a></p>
+<p><a href="https://tools.ietf.org/html/rfc7301" target="_blank" rel="external">RFC7301 Transport Layer Security (TLS) Application-Layer Protocol Negotiation Extension</a></p>
+<p><a href="https://tools.ietf.org/html/rfc5288" target="_blank" rel="external">RFC5288 AES Galois Counter Mode (GCM) Cipher Suites for TLS</a></p>
+<p><a href="https://tools.ietf.org/html/rfc7478" target="_blank" rel="external">RFC7478 Web Real-Time Communication Use Cases and Requirements</a></p>
+<p><a href="http://tools.ietf.org/html/rfc6454" target="_blank" rel="external">RFC6454 The Web Origin Concept</a></p>
+<p><a href="https://tools.ietf.org/html/rfc7301" target="_blank" rel="external">Transport Layer Security (TLS) Application-Layer Protocol Negotiation Extension</a></p>
+<p><a href="http://tools.ietf.org/html/draft-uberti-behave-turn-rest-00" target="_blank" rel="external">A REST API For Access To TURN Services draft-uberti-behave-turn-rest-00</a></p>
+<p><a href="http://tools.ietf.org/html/draft-johnston-tram-stun-origin-02" target="_blank" rel="external">An Origin Attribute for the STUN Protocol draft-johnston-tram-stun-origin-02</a></p>
+<p><a href="http://tools.ietf.org/html/draft-thomson-tram-turn-bandwidth-00" target="_blank" rel="external">A Bandwidth Attribute for TURN draft-thomson-tram-turn-bandwidth-00</a></p>
+<p>#udp<br><a href="https://ja.wikipedia.org/wiki/Maimum_Transmission_Unit" target="_blank" rel="external">wiki Maximum Transmission Unit</a></p>
+<p><a href="https://www.ietf.org/rfc/rfc3550.txt" target="_blank" rel="external">RFC3550 RTP: A Transport Protocol for Real-Time Applications</a></p>
+<p><a href="https://www.ietf.org/rfc/rfc2326.txt" target="_blank" rel="external">RFC2326 Real Time Streaming Protocol (RTSP)</a></p>
+<p><a href="https://tools.ietf.org/html/rfc6347" target="_blank" rel="external">RFC6347 Datagram Transport Layer Security Version 1.2</a></p>
+<p><a href="https://tools.ietf.org/html/rfc5238" target="_blank" rel="external">RFC5238 Datagram Transport Layer Security (DTLS) over the Datagram Congestion Control Protocol (DCCP)</a></p>
+<p><a href="https://tools.ietf.org/html/rfc6083" target="_blank" rel="external">RFC6083 Datagram Transport Layer Security (DTLS) for Stream Control Transmission Protocol (SCTP)</a></p>
+<p><a href="https://tools.ietf.org/html/rfc5764" target="_blank" rel="external">RFC5764 Datagram Transport Layer Security (DTLS) Extension to Establish Keys for the Secure Real-time Transport Protocol (SRTP)</a></p>
+<p><a href="https://tools.ietf.org/html/rfc3828" target="_blank" rel="external">RFC3828 The Lightweight User Datagram Protocol (UDP-Lite)</a></p>
+<p><a href="https://tools.ietf.org/html/rfc3711" target="_blank" rel="external">RFC3711 The Secure Real-time Transport Protocol (SRTP)</a></p>
+<p>#turn<br><a href="https://github.com/coturn/coturn/blob/master/examples/etc/turnserver.conf" target="_blank" rel="external">coturn config</a></p>
+<p><a href="http://creytiv.com/restund.html" target="_blank" rel="external">restund</a></p>
+<p><a href="https://www.resiprocate.org/ReTurn_Overview" target="_blank" rel="external">return</a></p>
+<p><a href="https://github.com/meetecho/janus-gateway" target="_blank" rel="external">janus-gateway</a></p>
+<p><a href="http://www.furorteutonicus.eu/2014/09/30/choosing-and-using-coturn-as-a-stun-and-turn-server-for-ice/" target="_blank" rel="external">CHOOSING AND USING COTURN AS A STUN AND TURN SERVER FOR ICE</a></p>
+<p>#node turn server<br><a href="https://github.com/DamonOehlman/freeice" target="_blank" rel="external">freeice</a></p>
+<p>#turn stun service<br><a href="http://xirsys.com/" target="_blank" rel="external">xirsys</a></p>
+<p><a href="http://influxis.com/" target="_blank" rel="external">influxis</a></p>
+<p><a href="https://easyrtc.com/" target="_blank" rel="external">easyrtc</a></p>
+<p><a href="https://www.skedans.com/#" target="_blank" rel="external">skedans</a></p>
+<p><a href="https://www.priologic.com/" target="_blank" rel="external">priologic</a></p>
+<p><a href="http://www.kurento.org/" target="_blank" rel="external">kurento</a></p>
+<p>#slide</p>
+<p><a href="http://sssslide.com/www.slideshare.net/KensakuKOMATSU/web-apiwebrtc-streams-push-api-etc" target="_blank" rel="external">最新Web 通信系API総まくり！WebRTC, Streams, Push api etc.</a></p>
+<p><a href="http://sssslide.com/www.slideshare.net/KensakuKOMATSU/p2p-webrtc" target="_blank" rel="external">ビデオ通話・P2Pがコモディティ化する世界 WebRTCによるこれからを探る</a></p>
+<p><a href="http://www.slideshare.net/td-nttcom/webrtc-tpac-2015" target="_blank" rel="external">TPAC 2015 WebRTC WG 最新レポート</a></p>
+<p><a href="http://www.slideshare.net/tnoho/jitsi-video-bridge" target="_blank" rel="external">Jitsi video bridge で遊んでみた</a></p>
+<p><a href="http://www.slideshare.net/webrtclive/kranky-geek-google-team" target="_blank" rel="external">Kranky Geek WebRTC 2015 - What’s next for WebRTC?</a></p>
+<p><a href="https://docs.google.com/presentation/d/11JBlA-9gY4qZzUB6YhhMjeeA7tc9vSJowvs6tgI2f1c/edit#slide=id.p" target="_blank" rel="external">W3C ORTC Community Group Meeting #10 November 20, 2015</a></p>
+<p>#wiki</p>
+<p><a href="https://ja.wikipedia.org/wiki/Session_Initiation_Protocol" target="_blank" rel="external">Session Initiation Protocol</a></p>
+<p><a href="https://en.wikipedia.org/wiki/Session_Description_Protocol" target="_blank" rel="external">Session Description Protocol</a></p>
+<p><a href="https://en.wikipedia.org/wiki/STUN" target="_blank" rel="external">STUN</a></p>
+<p><a href="https://en.wikipedia.org/wiki/Network_address_translation" target="_blank" rel="external">NAT</a></p>
+<p><a href="https://en.wikipedia.org/wiki/UDP_hole_punching" target="_blank" rel="external">UDP_hole_punching</a></p>
+<p><a href="http://webrtc-security.github.io/index.html" target="_blank" rel="external">webrtc security</a></p>
+<p><a href="https://en.wikipedia.org/wiki/Reliable_User_Datagram_Protocol" target="_blank" rel="external">Reliable User Datagram Protocol</a></p>
+<p><a href="https://en.wikipedia.org/wiki/Stream_Control_Transmission_Protocol" target="_blank" rel="external">Stream Control Transmission Protocol</a></p>
+<p><a href="https://en.wikipedia.org/wiki/ZRTP" target="_blank" rel="external">ZRTP</a></p>
+<p><a href="https://en.wikipedia.org/wiki/QUIC" target="_blank" rel="external">QUIC</a></p>
+<p><a href="https://en.wikipedia.org/wiki/SPDY" target="_blank" rel="external">SPDY</a></p>
+<p><a href="https://en.wikipedia.org/wiki/OAuth" target="_blank" rel="external">OAuth</a></p>
+<p><a href="https://en.wikipedia.org/wiki/OpenID" target="_blank" rel="external">OpenID</a></p>
+<p><a href="https://en.wikipedia.org/wiki/Facebook_Platform#Facebook_Connect" target="_blank" rel="external">Facebook Platform</a></p>
+<p><a href="https://en.wikipedia.org/wiki/Remote_procedure_call" target="_blank" rel="external">Remote procedure call</a></p>
+<p><a href="https://en.wikipedia.org/wiki/Internet_Control_Message_Protocol" target="_blank" rel="external">Internet Control Message Protocol</a></p>
+<p>#library<br><a href="http://libevent.org/" target="_blank" rel="external">libevent</a></p>
+<p>#auth<br><a href="https://tools.ietf.org/html/rfc6749" target="_blank" rel="external">RFC6749 The OAuth 2.0 Authorization Framework</a></p>
+<p>#etc</p>
+<p><a href="http://aomedia.org/" target="_blank" rel="external">aomedia</a></p>
+<p><a href="http://qiita.com/voluntas/items/63cb73e4c9373e726a34" target="_blank" rel="external">WebRTC スタック実装する場合読んでおくべき RFC まとめ</a></p>
+<p><a href="http://qiita.com/hiroyuki_hon/items/cd433ceae471f41dda62" target="_blank" rel="external">WebRTC関連の記事等へのリンクまとめ1.3.23.md</a></p>
+<p><a href="https://en.wikipedia.org/wiki/H.323" target="_blank" rel="external">h.323</a></p>
+<p><a href="http://www.h323.jp/mcu/index_mcu.html" target="_blank" rel="external">MCU（多地点接続装置）入門</a></p>
+<p><a href="http://www.dest-unreach.org/socat/doc/README" target="_blank" rel="external">socat for tcp relay</a></p>
+<p><a href="https://msdn.microsoft.com/en-us/library/windows/hardware/ff556942(v=vs.85" target="_blank" rel="external">Introduction to Receive Side Scaling</a>.aspx)</p>
+<p><a href="http://itpro.nikkeibp.co.jp/article/COLUMN/20100824/351391/?rt=nocnt" target="_blank" rel="external">ハードにネットワーク処理を分担させるSNP</a></p>
+<p><a href="https://github.com/torvalds/linux/blob/master/Documentation/networking/scaling.txt" target="_blank" rel="external">Scaling in the Linux Networking Stack</a></p>
+<p>#crypt<br><a href="https://en.wikipedia.org/wiki/Elliptic_Curve_Digital_Signature_Algorithm" target="_blank" rel="external">wiki Elliptic Curve Digital Signature Algorithm</a></p>
+<p>#security<br><a href="http://www.slideshare.net/muneakinishimura/webhtml5-31749532" target="_blank" rel="external">Webアプリ開発者のためのHTML5セキュリティ入門</a></p>
+<p><a href="https://cure53.de/" target="_blank" rel="external">cure53</a></p>
+<p>#extra<br>docker-machine create -d virtualbox –virtualbox-memory “5000” –virtualbox-cpu-count “4” –virtualbox-disk-size “100000” l2</p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+  
+  <div class="tags">
+    <a href="/blog/tags/webrtc/">webrtc</a>
+  </div>
+
+        
+  <div class="addthis addthis_toolbox addthis_default_style">
+    
+      <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+    
+    
+      <a class="addthis_button_tweet"></a>
+    
+    
+      <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+    
+    
+      <a class="addthis_button_pinterest_pinit" pi:pinit:layout="horizontal"></a>
+    
+    <a class="addthis_counter addthis_pill_style"></a>
+  </div>
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js"></script>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+  <h1 class="title">Comments</h1>
+
+  
+      <div id="fb-root"></div>
+<script>
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=123456789012345";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<div class="fb-comments" data-href="http://atyenoria.github.io/blog/2015/12/26/webrtc-1/index.html" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
+      
+  
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="Search">
+    <input type="hidden" name="q" value="site:atyenoria.github.io/blog">
+  </form>
+</div>
+
+  
+
+  
+<div class="widget tag">
+  <h3 class="title">Tags</h3>
+  <ul class="entry">
+  
+    <li><a href="/blog/tags/book/">book</a><small>1</small></li>
+  
+    <li><a href="/blog/tags/business/">business</a><small>2</small></li>
+  
+    <li><a href="/blog/tags/edtech/">edtech</a><small>1</small></li>
+  
+    <li><a href="/blog/tags/hakusho/">hakusho</a><small>1</small></li>
+  
+    <li><a href="/blog/tags/webrtc/">webrtc</a><small>2</small></li>
+  
+  </ul>
+</div>
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2015 akinori nakajima
+  
+</div>
+<div class="clearfix"></div></footer>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="/blog/js/jquery.imagesloaded.min.js"></script>
+<script src="/blog/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/blog/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>
