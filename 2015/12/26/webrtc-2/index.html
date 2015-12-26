@@ -31,7 +31,7 @@ Point-to-Point Protocol
 Layer 2 Tunneling Protocol
 Real-time Transport Protocol
 CSR">
-<meta property="og:updated_time" content="2015-12-26T14:37:39.000Z">
+<meta property="og:updated_time" content="2015-12-26T14:45:37.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="webrtc-2">
 <meta name="twitter:description" content="RFC4301 Security Architecture for the Internet Protocol
@@ -135,7 +135,8 @@ CSR">
 <p><a href="https://tools.ietf.org/html/rfc4960" target="_blank" rel="external">RFC4960 Stream Control Transmission Protocol</a></p>
 <p><a href="https://ja.wikipedia.org/wiki/Maximum_Transmission_Unit" target="_blank" rel="external">wiki Maximum Transmission Unit</a></p>
 <p><a href="Public switched telephone network">https://en.wikipedia.org/wiki/Public_switched_telephone_network</a></p>
-<p>#tcp<br><a href="https://en.wikipedia.org/wiki/Transmission_Control_Protocol" target="_blank" rel="external">Transmission Control Protocol</a><br>・TCP provides reliable, ordered, and error-checked delivery of a stream of octets between applications running on hosts communicating over an IP network<br>・At the lower levels of the protocol stack, due to network congestion, traffic load balancing, or other unpredictable network behavior, IP packets may be lost, duplicated, or delivered out of order. TCP detects these problems, requests retransmission of lost data, rearranges out-of-order data, and even helps minimize network congestion to reduce the occurrence of the other problems.<br><a href="https://ja.wikipedia.org/wiki/%E3%82%AA%E3%83%95%E3%83%AD%E3%83%BC%E3%83%89_\(%E3%82%B3%E3%83%B3%E3%83%94%E3%83%A5%E3%83%BC%E3%82%BF%E7%94%A8%E8%AA%9E\" target="_blank" rel="external">オフロード</a>)</p>
+<p>#tcp<br><a href="https://en.wikipedia.org/wiki/Transmission_Control_Protocol" target="_blank" rel="external">Transmission Control Protocol</a><br>・TCP provides reliable, ordered, and error-checked delivery of a stream of octets between applications running on hosts communicating over an IP network<br>・At the lower levels of the protocol stack, due to network congestion, traffic load balancing, or other unpredictable network behavior, IP packets may be lost, duplicated, or delivered out of order. TCP detects these problems, requests retransmission of lost data, rearranges out-of-order data, and even helps minimize network congestion to reduce the occurrence of the other problems.<br>・Since packet transfer over many networks is not reliable, a technique known as positive acknowledgment with retransmission is used to guarantee reliability of packet transfers. This fundamental technique requires the receiver to respond with an acknowledgment message as it receives the data.<br>・While IP handles actual delivery of the data, TCP keeps track of the individual units of data transmission, called segments, that a message is divided into for efficient routing through the network.<br><a href="https://en.wikipedia.org/wiki/Transmission_Control_Protocol#/media/File:Tcp_state_diagram_fixed_new.svg" target="_blank" rel="external">tcp operation graph</a></p>
+<p><a href="https://ja.wikipedia.org/wiki/%E3%82%AA%E3%83%95%E3%83%AD%E3%83%BC%E3%83%89_\(%E3%82%B3%E3%83%B3%E3%83%94%E3%83%A5%E3%83%BC%E3%82%BF%E7%94%A8%E8%AA%9E\" target="_blank" rel="external">オフロード</a>)</p>
   
 	</div>
 		<footer class="article-footer clearfix">
