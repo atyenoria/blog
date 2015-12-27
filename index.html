@@ -138,6 +138,7 @@
 <li>TCP uses a sequence number to identify each byte of data</li>
 <li>In the first two steps of the 3-way handshake, both computers exchange an initial sequence number (ISN). This number can be arbitrary, and should in fact be unpredictable to defend against TCP sequence prediction attacks.</li>
 </ul>
+<h3 id="flow_control">flow control</h3><p>-When a receiver advertises a window size of 0, the sender stops sending data and starts the persist timer. The persist timer is used to protect TCP from a deadlock situation that could arise if a subsequent window size update from the receiver is lost, and the sender cannot send more data until receiving a new window size update from the receiver</p>
 <p><a href="https://en.wikipedia.org/wiki/TCP_sequence_prediction_attack" target="_blank" rel="external">TCP sequence prediction attack</a></p>
 <p><a href="https://en.wikipedia.org/wiki/Transmission_Control_Protocol#/media/File:Tcp_state_diagram_fixed_new.svg" target="_blank" rel="external">tcp operation graph</a></p>
 <p><a href="https://ja.wikipedia.org/wiki/%E3%82%AA%E3%83%95%E3%83%AD%E3%83%BC%E3%83%89_\(%E3%82%B3%E3%83%B3%E3%83%94%E3%83%A5%E3%83%BC%E3%82%BF%E7%94%A8%E8%AA%9E\" target="_blank" rel="external">オフロード</a>)</p>
