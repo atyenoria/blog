@@ -140,7 +140,8 @@
 </header>
     <div class="article-content">
         
-        <p><a href="https://tools.ietf.org/html/rfc4301" target="_blank" rel="external">RFC4301 Security Architecture for the Internet Protocol</a></p>
+        <p><a href="http://www5e.biglobe.ne.jp/%257eaji/3min/index.html" target="_blank" rel="external">３分間ネットワーキング</a></p>
+<p><a href="https://tools.ietf.org/html/rfc4301" target="_blank" rel="external">RFC4301 Security Architecture for the Internet Protocol</a></p>
 <p><a href="https://ja.wikipedia.org/wiki/Virtual_Private_Network" target="_blank" rel="external">Virtual Private Network</a></p>
 <p><a href="https://ja.wikipedia.org/wiki/Multi-Protocol_Label_Switching" target="_blank" rel="external">Multi-Protocol Label Switching</a></p>
 <p><a href="https://ja.wikipedia.org/wiki/IPsec" target="_blank" rel="external">IPsec</a></p>
@@ -153,11 +154,11 @@
 <p><a href="https://en.wikipedia.org/wiki/Real_Time_Streaming_Protocol" target="_blank" rel="external">Real Time Streaming Protocol</a></p>
 <p><a href="https://en.wikipedia.org/wiki/Voice_over_IP" target="_blank" rel="external">Voice over IP</a></p>
 <p><a href="https://en.wikipedia.org/wiki/Stream_Control_Transmission_Protocol" target="_blank" rel="external">Stream Control Transmission Protocol</a></p>
-<h1 id="sctp">sctp</h1><p>service<br>・sequenced delivery of user messages within multiple streams, with an option for order-of-arrival delivery of individual user messages<br>・optional bundling of multiple user messages into a single SCTP packet, and<br>・network-level fault tolerance through supporting of multi-homing at either or both ends of an association.</p>
+<h2 id="SCTP">SCTP</h2><p>service<br>・sequenced delivery of user messages within multiple streams, with an option for order-of-arrival delivery of individual user messages<br>・optional bundling of multiple user messages into a single SCTP packet, and<br>・network-level fault tolerance through supporting of multi-homing at either or both ends of an association.</p>
 <p>motivation<br>・Some applications need reliable transfer without sequence maintenance, while others would be satisfied with partial ordering of the data. the head-of-line blocking offered by TCP causes unnecessary delay<br>・TCP is relatively vulnerable to denial-of-service attacks, such as SYN attacks<br><a href="https://tools.ietf.org/html/rfc4960" target="_blank" rel="external">RFC4960 Stream Control Transmission Protocol</a></p>
 <p><a href="https://ja.wikipedia.org/wiki/Maximum_Transmission_Unit" target="_blank" rel="external">wiki Maximum Transmission Unit</a></p>
 <p><a href="Public switched telephone network">https://en.wikipedia.org/wiki/Public_switched_telephone_network</a></p>
-<h2 id="tcp">tcp</h2><p><a href="https://en.wikipedia.org/wiki/Transmission_Control_Protocol" target="_blank" rel="external">Transmission Control Protocol</a></p>
+<h2 id="TCP">TCP</h2><p><a href="https://en.wikipedia.org/wiki/Transmission_Control_Protocol" target="_blank" rel="external">Transmission Control Protocol</a></p>
 <ul>
 <li>TCP provides reliable, ordered, and error-checked delivery of a stream of octets between applications running on hosts communicating over an IP network</li>
 <li>At the lower levels of the protocol stack, due to network congestion, traffic load balancing, or other unpredictable network behavior, IP packets may be lost, duplicated, or delivered out of order. TCP detects these problems, requests retransmission of lost data, rearranges out-of-order data, and even helps minimize network congestion to reduce the occurrence of the other problems.</li>
@@ -211,9 +212,18 @@
 <li>Sockstress is a method that is used to attack servers on the Internet and other networks utilizing TCP, including Windows, Mac, Linux, BSD and any router or other internet appliance that accepts TCP connections</li>
 <li>An attacker who can eavesdrop and predict the size of the next packet to be sent can cause the receiver to accept a malicious payload without disrupting the existing connection</li>
 </ul>
+<h3 id="TCP_ports">TCP ports</h3><ul>
+<li>TCP uses port numbers to identify sending and receiving application end-points on a host, often called Internet sockets</li>
+<li>Arriving TCP packets are identified as belonging to a specific TCP connection by its sockets, that is, the combination of source host address, source port, destination host address, and destination port</li>
+</ul>
+<h3 id="Debugging">Debugging</h3><ul>
+<li>A packet sniffer, which intercepts TCP traffic on a network link, can be useful in debugging networks, network stacks and applications that use TCP by showing the user what packets are passing through a link</li>
+<li>Netstat is another utility that can be used for debugging.</li>
+</ul>
 <h2 id="ARP">ARP</h2><ul>
 <li>The Address Resolution Protocol (ARP) is a telecommunication protocol used for resolution of network layer addresses into link layer addresses, a critical function in multiple-access networks<br><a href="https://en.wikipedia.org/wiki/Address_Resolution_Protocol" target="_blank" rel="external">Address Resolution Protocol</a></li>
 </ul>
+<h3 id="TCP_window_scale_option">TCP window scale option</h3><p><a href="https://www.ietf.org/rfc/rfc1323.txt" target="_blank" rel="external">RFC1323 TCP Extensions for High Performance</a></p>
 <h2 id="MAC_address">MAC address</h2><p><a href="https://en.wikipedia.org/wiki/MAC_address" target="_blank" rel="external">MAC address</a></p>
 <ul>
 <li>A media access control address (MAC address), also called physical address, is a unique identifier assigned to network interfaces for communications on the physical network segment</li>
