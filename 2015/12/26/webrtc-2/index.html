@@ -31,7 +31,7 @@ Point-to-Point Protocol
 Layer 2 Tunneling Protocol
 Real-time Transport Protocol
 CSR">
-<meta property="og:updated_time" content="2015-12-27T09:06:04.000Z">
+<meta property="og:updated_time" content="2015-12-27T09:07:14.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="webrtc-2">
 <meta name="twitter:description" content="RFC4301 Security Architecture for the Internet Protocol
@@ -113,7 +113,7 @@ CSR">
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">Contents</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#sctp"><span class="toc-number">1.</span> <span class="toc-text">sctp</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#tcp"><span class="toc-number">2.</span> <span class="toc-text">tcp</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#connection_step"><span class="toc-number">2.1.</span> <span class="toc-text">connection step</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#disconnection_step"><span class="toc-number">2.2.</span> <span class="toc-text">disconnection step</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#resource_usage"><span class="toc-number">2.2.0.1.</span> <span class="toc-text">resource usage</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#data_transfer"><span class="toc-number">2.2.1.</span> <span class="toc-text">data transfer</span></a></li></ol></li></ol></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#sctp"><span class="toc-number">1.</span> <span class="toc-text">sctp</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#tcp"><span class="toc-number">1.1.</span> <span class="toc-text">tcp</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#connection_step"><span class="toc-number">1.1.1.</span> <span class="toc-text">connection step</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#disconnection_step"><span class="toc-number">1.1.2.</span> <span class="toc-text">disconnection step</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#resource_usage"><span class="toc-number">1.1.3.</span> <span class="toc-text">resource usage</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#data_transfer"><span class="toc-number">1.1.4.</span> <span class="toc-text">data transfer</span></a></li></ol></li></ol></li></ol>
 		
 		</div>
 		
@@ -134,23 +134,23 @@ CSR">
 <p>motivation<br>・Some applications need reliable transfer without sequence maintenance, while others would be satisfied with partial ordering of the data. the head-of-line blocking offered by TCP causes unnecessary delay<br>・TCP is relatively vulnerable to denial-of-service attacks, such as SYN attacks<br><a href="https://tools.ietf.org/html/rfc4960" target="_blank" rel="external">RFC4960 Stream Control Transmission Protocol</a></p>
 <p><a href="https://ja.wikipedia.org/wiki/Maximum_Transmission_Unit" target="_blank" rel="external">wiki Maximum Transmission Unit</a></p>
 <p><a href="Public switched telephone network">https://en.wikipedia.org/wiki/Public_switched_telephone_network</a></p>
-<h1 id="tcp">tcp</h1><p><a href="https://en.wikipedia.org/wiki/Transmission_Control_Protocol" target="_blank" rel="external">Transmission Control Protocol</a></p>
+<h2 id="tcp">tcp</h2><p><a href="https://en.wikipedia.org/wiki/Transmission_Control_Protocol" target="_blank" rel="external">Transmission Control Protocol</a></p>
 <ul>
 <li>TCP provides reliable, ordered, and error-checked delivery of a stream of octets between applications running on hosts communicating over an IP network</li>
 <li>At the lower levels of the protocol stack, due to network congestion, traffic load balancing, or other unpredictable network behavior, IP packets may be lost, duplicated, or delivered out of order. TCP detects these problems, requests retransmission of lost data, rearranges out-of-order data, and even helps minimize network congestion to reduce the occurrence of the other problems.</li>
 <li>Since packet transfer over many networks is not reliable, a technique known as positive acknowledgment with retransmission is used to guarantee reliability of packet transfers. This fundamental technique requires the receiver to respond with an acknowledgment message as it receives the data.</li>
 <li>While IP handles actual delivery of the data, TCP keeps track of the individual units of data transmission, called segments, that a message is divided into for efficient routing through the network.</li>
 </ul>
-<h2 id="connection_step">connection step</h2><ul>
+<h3 id="connection_step">connection step</h3><ul>
 <li>SYN: The active open is performed by the client sending a SYN to the server. The client sets the segment’s sequence number to a random value A.</li>
 <li>SYN-ACK: In response, the server replies with a SYN-ACK. The acknowledgment number is set to one more than the received sequence number i.e. A+1, and the sequence number that the server chooses for the packet is another random number, B.</li>
 <li>ACK: Finally, the client sends an ACK back to the server. The sequence number is set to the received acknowledgement value i.e. A+1, and the acknowledgement number is set to one more than the received sequence number i.e. B+1.</li>
 </ul>
-<h2 id="disconnection_step">disconnection step</h2><ul>
+<h3 id="disconnection_step">disconnection step</h3><ul>
 <li>The connection termination phase uses a four-way handshake, with each side of the connection terminating independently.</li>
 <li>It is also possible to terminate the connection by a 3-way handshake, when host A sends a FIN and host B replies with a FIN &amp; ACK (merely combines 2 steps into one) and host A replies with an ACK.[12]</li>
 </ul>
-<h4 id="resource_usage">resource usage</h4><ul>
+<h3 id="resource_usage">resource usage</h3><ul>
 <li>Most implementations allocate an entry in a table that maps a session to a running operating system process</li>
 <li>Each entry in the table is known as a Transmission Control Block or TCB. It contains information about the endpoints (IP and port), status of the connection, running data about the packets that are being exchanged and buffers for sending and receiving data</li>
 </ul>
@@ -211,7 +211,7 @@ CSR">
   <div id="toc" class="toc-aside">
   <strong class="toc-title">Contents</strong>
  
- <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#sctp"><span class="toc-number">1.</span> <span class="toc-text">sctp</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#tcp"><span class="toc-number">2.</span> <span class="toc-text">tcp</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#connection_step"><span class="toc-number">2.1.</span> <span class="toc-text">connection step</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#disconnection_step"><span class="toc-number">2.2.</span> <span class="toc-text">disconnection step</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#resource_usage"><span class="toc-number">2.2.0.1.</span> <span class="toc-text">resource usage</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#data_transfer"><span class="toc-number">2.2.1.</span> <span class="toc-text">data transfer</span></a></li></ol></li></ol></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#sctp"><span class="toc-number">1.</span> <span class="toc-text">sctp</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#tcp"><span class="toc-number">1.1.</span> <span class="toc-text">tcp</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#connection_step"><span class="toc-number">1.1.1.</span> <span class="toc-text">connection step</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#disconnection_step"><span class="toc-number">1.1.2.</span> <span class="toc-text">disconnection step</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#resource_usage"><span class="toc-number">1.1.3.</span> <span class="toc-text">resource usage</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#data_transfer"><span class="toc-number">1.1.4.</span> <span class="toc-text">data transfer</span></a></li></ol></li></ol></li></ol>
  
   </div>
 
