@@ -77,7 +77,7 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/blog/2015/12/27/high-browser/" title="high-browser" itemprop="url">high-browser</a>
+      <a href="/blog/2015/12/27/performance/" title="performance" itemprop="url">performance</a>
   </h1>
   <p class="article-author">By
        
@@ -192,7 +192,35 @@
 <li>When a receiver advertises a window size of 0, the sender stops sending data and starts the persist timer. The persist timer is used to protect TCP from a deadlock situation that could arise if a subsequent window size update from the receiver is lost, and the sender cannot send more data until receiving a new window size update from the receiver</li>
 <li>If a receiver is processing incoming data in small increments, it may repeatedly advertise a small receive window. This is referred to as the silly window syndrome, since it is inefficient to send only a few bytes of data in a TCP segment, given the relatively large overhead of the TCP header</li>
 </ul>
-<h3 id="congestion_control">congestion control</h3><p>-<br><a href="https://en.wikipedia.org/wiki/TCP_sequence_prediction_attack" target="_blank" rel="external">TCP sequence prediction attack</a></p>
+<h3 id="selective_acknowledgement">selective acknowledgement</h3><ul>
+<li>Relying purely on the cumulative acknowledgment scheme employed by the original TCP protocol can lead to inefficiencies when packets are lost</li>
+<li>To alleviate this issue TCP employs the selective acknowledgment (SACK) option, defined in RFC 2018, which allows the receiver to acknowledge discontinuous blocks of packets which were received correctly, in addition to the sequence number of the last contiguous byte received successively, as in the basic TCP acknowledgment</li>
+</ul>
+<h3 id="TCP_timestamps">TCP timestamps</h3><ul>
+<li>TCP timestamps, defined in RFC 1323, can help TCP determine in which order packets were sent. TCP timestamps are not normally aligned to the system clock and start at some random value</li>
+</ul>
+<h3 id="Out-of-band_data">Out-of-band data</h3><ul>
+<li>It is possible to interrupt or abort the queued stream instead of waiting for the stream to finish. This is done by specifying the data as urgent. This tells the receiving program to process it immediately, along with the rest of the urgent data</li>
+</ul>
+<h3 id="Forcing_data_delivery">Forcing data delivery</h3><ul>
+<li>Normally, TCP waits for 200 ms or for a full packet of data to send (Nagle’s Algorithm tries to group small messages into a single packet). This wait creates small, but potentially serious delays if repeated constantly during a file transfer.</li>
+</ul>
+<h3 id="Vulnerabilities">Vulnerabilities</h3><ul>
+<li>By using a spoofed IP address and repeatedly sending purposely assembled SYN packets, followed by many ACK packets, attackers can cause the server to consume large amounts of resources keeping track of the bogus connections. This is known as a SYN flood attack.</li>
+<li>A SYN flood is a form of denial-of-service attack in which an attacker sends a succession of SYN requests to a target’s system in an attempt to consume enough server resources to make the system unresponsive to legitimate traffic</li>
+<li>Sockstress is a method that is used to attack servers on the Internet and other networks utilizing TCP, including Windows, Mac, Linux, BSD and any router or other internet appliance that accepts TCP connections</li>
+<li>An attacker who can eavesdrop and predict the size of the next packet to be sent can cause the receiver to accept a malicious payload without disrupting the existing connection</li>
+</ul>
+<h2 id="ARP">ARP</h2><ul>
+<li>The Address Resolution Protocol (ARP) is a telecommunication protocol used for resolution of network layer addresses into link layer addresses, a critical function in multiple-access networks<br><a href="https://en.wikipedia.org/wiki/Address_Resolution_Protocol" target="_blank" rel="external">Address Resolution Protocol</a></li>
+</ul>
+<h2 id="MAC_address">MAC address</h2><p><a href="https://en.wikipedia.org/wiki/MAC_address" target="_blank" rel="external">MAC address</a></p>
+<ul>
+<li>A media access control address (MAC address), also called physical address, is a unique identifier assigned to network interfaces for communications on the physical network segment</li>
+</ul>
+<h2 id="OSI_model">OSI model</h2><ul>
+<li>The Open Systems Interconnection model (OSI model) is a conceptual model that characterizes and standardizes the communication functions of a telecommunication or computing system without regard to their underlying internal structure and technology<br><a href="https://en.wikipedia.org/wiki/OSI_model" target="_blank" rel="external">OSI model</a><br><a href="https://en.wikipedia.org/wiki/TCP_sequence_prediction_attack" target="_blank" rel="external">TCP sequence prediction attack</a></li>
+</ul>
 <p><a href="https://en.wikipedia.org/wiki/Transmission_Control_Protocol#/media/File:Tcp_state_diagram_fixed_new.svg" target="_blank" rel="external">tcp operation graph</a></p>
 <p><a href="https://ja.wikipedia.org/wiki/%E3%82%AA%E3%83%95%E3%83%AD%E3%83%BC%E3%83%89_\(%E3%82%B3%E3%83%B3%E3%83%94%E3%83%A5%E3%83%BC%E3%82%BF%E7%94%A8%E8%AA%9E\" target="_blank" rel="external">オフロード</a>)</p>
 
