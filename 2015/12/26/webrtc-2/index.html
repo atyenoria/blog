@@ -31,7 +31,7 @@ Point-to-Point Protocol
 Layer 2 Tunneling Protocol
 Real-time Transport Protocol
 CSR">
-<meta property="og:updated_time" content="2015-12-27T09:03:47.000Z">
+<meta property="og:updated_time" content="2015-12-27T09:05:11.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="webrtc-2">
 <meta name="twitter:description" content="RFC4301 Security Architecture for the Internet Protocol
@@ -113,7 +113,7 @@ CSR">
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">Contents</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#sctp"><span class="toc-number">1.</span> <span class="toc-text">sctp</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#tcp"><span class="toc-number">2.</span> <span class="toc-text">tcp</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#connection_step"><span class="toc-number">2.1.</span> <span class="toc-text">connection step</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#disconnection_step"><span class="toc-number">2.2.</span> <span class="toc-text">disconnection step</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#resource_usage"><span class="toc-number">2.3.</span> <span class="toc-text">resource usage</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#data_transfer"><span class="toc-number">2.4.</span> <span class="toc-text">data transfer</span></a></li></ol></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#sctp"><span class="toc-number">1.</span> <span class="toc-text">sctp</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#tcp"><span class="toc-number">2.</span> <span class="toc-text">tcp</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#connection_step"><span class="toc-number">2.1.</span> <span class="toc-text">connection step</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#disconnection_step"><span class="toc-number">2.2.</span> <span class="toc-text">disconnection step</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#resource_usage"><span class="toc-number">2.2.0.0.1.</span> <span class="toc-text">resource usage</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#data_transfer"><span class="toc-number">2.3.</span> <span class="toc-text">data transfer</span></a></li></ol></li></ol>
 		
 		</div>
 		
@@ -150,7 +150,7 @@ CSR">
 <li>The connection termination phase uses a four-way handshake, with each side of the connection terminating independently.</li>
 <li>It is also possible to terminate the connection by a 3-way handshake, when host A sends a FIN and host B replies with a FIN &amp; ACK (merely combines 2 steps into one) and host A replies with an ACK.[12]</li>
 </ul>
-<h2 id="resource_usage">resource usage</h2><ul>
+<h5 id="resource_usage">resource usage</h5><ul>
 <li>Most implementations allocate an entry in a table that maps a session to a running operating system process</li>
 <li>Each entry in the table is known as a Transmission Control Block or TCB. It contains information about the endpoints (IP and port), status of the connection, running data about the packets that are being exchanged and buffers for sending and receiving data</li>
 </ul>
@@ -211,7 +211,7 @@ CSR">
   <div id="toc" class="toc-aside">
   <strong class="toc-title">Contents</strong>
  
- <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#sctp"><span class="toc-number">1.</span> <span class="toc-text">sctp</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#tcp"><span class="toc-number">2.</span> <span class="toc-text">tcp</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#connection_step"><span class="toc-number">2.1.</span> <span class="toc-text">connection step</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#disconnection_step"><span class="toc-number">2.2.</span> <span class="toc-text">disconnection step</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#resource_usage"><span class="toc-number">2.3.</span> <span class="toc-text">resource usage</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#data_transfer"><span class="toc-number">2.4.</span> <span class="toc-text">data transfer</span></a></li></ol></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#sctp"><span class="toc-number">1.</span> <span class="toc-text">sctp</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#tcp"><span class="toc-number">2.</span> <span class="toc-text">tcp</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#connection_step"><span class="toc-number">2.1.</span> <span class="toc-text">connection step</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#disconnection_step"><span class="toc-number">2.2.</span> <span class="toc-text">disconnection step</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#resource_usage"><span class="toc-number">2.2.0.0.1.</span> <span class="toc-text">resource usage</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#data_transfer"><span class="toc-number">2.3.</span> <span class="toc-text">data transfer</span></a></li></ol></li></ol>
  
   </div>
 
