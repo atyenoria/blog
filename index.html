@@ -123,11 +123,11 @@
 <li>The connection termination phase uses a four-way handshake, with each side of the connection terminating independently.</li>
 <li>It is also possible to terminate the connection by a 3-way handshake, when host A sends a FIN and host B replies with a FIN &amp; ACK (merely combines 2 steps into one) and host A replies with an ACK.[12]</li>
 </ul>
-<h5 id="resource_usage">resource usage</h5><ul>
+<h4 id="resource_usage">resource usage</h4><ul>
 <li>Most implementations allocate an entry in a table that maps a session to a running operating system process</li>
 <li>Each entry in the table is known as a Transmission Control Block or TCB. It contains information about the endpoints (IP and port), status of the connection, running data about the packets that are being exchanged and buffers for sending and receiving data</li>
 </ul>
-<h2 id="data_transfer">data transfer</h2><ul>
+<h3 id="data_transfer">data transfer</h3><ul>
 <li>Ordered data transfer — the destination host rearranges according to sequence number[2]</li>
 <li>Retransmission of lost packets — any cumulative stream not acknowledged is retransmitted[2]</li>
 <li>Error-free data transfer[13]</li>
