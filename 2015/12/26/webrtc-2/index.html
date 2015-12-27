@@ -31,7 +31,7 @@ Point-to-Point Protocol
 Layer 2 Tunneling Protocol
 Real-time Transport Protocol
 CSR">
-<meta property="og:updated_time" content="2015-12-27T09:07:14.000Z">
+<meta property="og:updated_time" content="2015-12-27T09:11:11.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="webrtc-2">
 <meta name="twitter:description" content="RFC4301 Security Architecture for the Internet Protocol
@@ -113,7 +113,7 @@ CSR">
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">Contents</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#sctp"><span class="toc-number">1.</span> <span class="toc-text">sctp</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#tcp"><span class="toc-number">1.1.</span> <span class="toc-text">tcp</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#connection_step"><span class="toc-number">1.1.1.</span> <span class="toc-text">connection step</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#disconnection_step"><span class="toc-number">1.1.2.</span> <span class="toc-text">disconnection step</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#resource_usage"><span class="toc-number">1.1.3.</span> <span class="toc-text">resource usage</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#data_transfer"><span class="toc-number">1.1.4.</span> <span class="toc-text">data transfer</span></a></li></ol></li></ol></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#sctp"><span class="toc-number">1.</span> <span class="toc-text">sctp</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#tcp"><span class="toc-number">1.1.</span> <span class="toc-text">tcp</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#connection_step"><span class="toc-number">1.1.1.</span> <span class="toc-text">connection step</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#disconnection_step"><span class="toc-number">1.1.2.</span> <span class="toc-text">disconnection step</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#resource_usage"><span class="toc-number">1.1.3.</span> <span class="toc-text">resource usage</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#data_transfer"><span class="toc-number">1.1.4.</span> <span class="toc-text">data transfer</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#reliable_transmission"><span class="toc-number">1.1.5.</span> <span class="toc-text">reliable transmission</span></a></li></ol></li></ol></li></ol>
 		
 		</div>
 		
@@ -158,8 +158,14 @@ CSR">
 <li>Ordered data transfer — the destination host rearranges according to sequence number[2]</li>
 <li>Retransmission of lost packets — any cumulative stream not acknowledged is retransmitted[2]</li>
 <li>Error-free data transfer[13]</li>
-<li>Flow control — limits the rate a sender transfers data to guarantee reliable delivery. The receiver continually hints the sender on how much data can be received (controlled by the sliding window). When the receiving host’s buffer fills, the next acknowledgment contains a 0 in the window size, to stop transfer and allow the data in the buffer to be processed.[2]<br>Congestion control [2]</li>
+<li>Flow control — limits the rate a sender transfers data to guarantee reliable delivery. The receiver continually hints the sender on how much data can be received (controlled by the sliding window). When the receiving host’s buffer fills, the next acknowledgment contains a 0 in the window size, to stop transfer and allow the data in the buffer to be processed.[2]</li>
+<li>Congestion control [2]</li>
 </ul>
+<h3 id="reliable_transmission">reliable transmission</h3><ul>
+<li>TCP uses a sequence number to identify each byte of data</li>
+<li>In the first two steps of the 3-way handshake, both computers exchange an initial sequence number (ISN). This number can be arbitrary, and should in fact be unpredictable to defend against TCP sequence prediction attacks.</li>
+</ul>
+<p><a href="https://en.wikipedia.org/wiki/TCP_sequence_prediction_attack" target="_blank" rel="external">TCP sequence prediction attack</a></p>
 <p><a href="https://en.wikipedia.org/wiki/Transmission_Control_Protocol#/media/File:Tcp_state_diagram_fixed_new.svg" target="_blank" rel="external">tcp operation graph</a></p>
 <p><a href="https://ja.wikipedia.org/wiki/%E3%82%AA%E3%83%95%E3%83%AD%E3%83%BC%E3%83%89_\(%E3%82%B3%E3%83%B3%E3%83%94%E3%83%A5%E3%83%BC%E3%82%BF%E7%94%A8%E8%AA%9E\" target="_blank" rel="external">オフロード</a>)</p>
   
@@ -211,7 +217,7 @@ CSR">
   <div id="toc" class="toc-aside">
   <strong class="toc-title">Contents</strong>
  
- <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#sctp"><span class="toc-number">1.</span> <span class="toc-text">sctp</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#tcp"><span class="toc-number">1.1.</span> <span class="toc-text">tcp</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#connection_step"><span class="toc-number">1.1.1.</span> <span class="toc-text">connection step</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#disconnection_step"><span class="toc-number">1.1.2.</span> <span class="toc-text">disconnection step</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#resource_usage"><span class="toc-number">1.1.3.</span> <span class="toc-text">resource usage</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#data_transfer"><span class="toc-number">1.1.4.</span> <span class="toc-text">data transfer</span></a></li></ol></li></ol></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#sctp"><span class="toc-number">1.</span> <span class="toc-text">sctp</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#tcp"><span class="toc-number">1.1.</span> <span class="toc-text">tcp</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#connection_step"><span class="toc-number">1.1.1.</span> <span class="toc-text">connection step</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#disconnection_step"><span class="toc-number">1.1.2.</span> <span class="toc-text">disconnection step</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#resource_usage"><span class="toc-number">1.1.3.</span> <span class="toc-text">resource usage</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#data_transfer"><span class="toc-number">1.1.4.</span> <span class="toc-text">data transfer</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#reliable_transmission"><span class="toc-number">1.1.5.</span> <span class="toc-text">reliable transmission</span></a></li></ol></li></ol></li></ol>
  
   </div>
 
@@ -450,16 +456,6 @@ $(document).ready(function(){
 <!-- Analytics Begin -->
 
 
-
-<script>
-var _hmt = _hmt || [];
-(function() {
-  var hm = document.createElement("script");
-  hm.src = "//hm.baidu.com/hm.js?e6d1f421bbc9962127a50488f9ed37d1";
-  var s = document.getElementsByTagName("script")[0]; 
-  s.parentNode.insertBefore(hm, s);
-})();
-</script>
 
 
 
