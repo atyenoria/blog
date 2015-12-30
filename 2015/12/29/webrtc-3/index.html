@@ -35,7 +35,7 @@ ssh 公開鍵認証
 我々はどのようにして安全なHTTPS通信を提供すれば良いか
 httpsだからというだけで安全？調べたら怖くなってきたSSLの話!？
 Online">
-<meta property="og:updated_time" content="2015-12-30T10:01:05.000Z">
+<meta property="og:updated_time" content="2015-12-30T15:15:18.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="webrtc-3">
 <meta name="twitter:description" content="Symmetric-key algorithm
@@ -176,7 +176,27 @@ Online">
 <li>Video codecs: H.261, H.263, H.264</li>
 </ul>
 <p><a href="https://en.wikipedia.org/wiki/Session_Description_Protocol" target="_blank" rel="external">Session Description Protocol</a></p>
+<ul>
+<li>SDP is intended for describing multimedia communication sessions for the purposes of session announcement, session invitation, and parameter negotiation</li>
+</ul>
 <p><a href="https://www.google.co.jp/search?q=webrtc+protocol+stack&amp;espv=2&amp;biw=1600&amp;bih=890&amp;source=lnms&amp;tbm=isch&amp;sa=X&amp;ved=0ahUKEwjVm8LYqYPKAhXmF6YKHX0FB3cQ_AUIBigB&amp;dpr=1.8#imgrc=m4f1LJVzoshYEM%3A" target="_blank" rel="external">webrtc protocol stack</a></p>
+<p><a href="http://www1.cs.columbia.edu/~salman/publications/skype1_4.pdf" target="_blank" rel="external">An Analysis of the Skype Peer-to-Peer Internet Telephony Protocol</a></p>
+<ul>
+<li>This paper analyzes key Skype functions such as login, NAT and firewall traversal, call establishment, media transfer, codecs, and conferencing under three different network setups.</li>
+<li>Any node with a public IP address having sufficient CPU, memory, and network bandwidth is a candidate to become a super node.</li>
+<li>It uses TCP for signaling, and both UDP and TCP for transporting media traffic</li>
+<li>Unlike many Internet protocols like SIP [9] and HTTP [10], there is no default TCP or UDP listening port</li>
+<li>The host cache (HC) is a list of super node IP address and port pairs that SC builds and refreshes regularly</li>
+<li>Unlike its file sharing counter part Kazaa, a Skype client cannot prevent itself from becoming a super node</li>
+<li>Skype functions can be classified into startup, login, user search, call establishment and tear down, media transfer, and presence messages</li>
+<li>The NAT and firewall traversal techniques of Skype are similar to many existing applications such as network games</li>
+<li>In this paper, we have tried to analyze various aspects of the Skype protocol by analyzing the Skype network traffic and by intercepting the shared library and system calls of Skype</li>
+<li>Skype does not allow a user to prevent its machine from becoming a SN although it is possible to prevent Skype from becoming a SN by putting a bandwidth limiter on the Skype application when no call is in progress</li>
+<li>The voice packet size varied between 40 and 120 bytes. roughly 85 voice packets were exchanged both ways in one second. The total uplink and downlink bandwidth used for voice traffic was 5 kilobytes/s</li>
+<li>TCP from another online Skype node. The TCP packet payload size for voice traffic varied between 30 and 90 bytes. The total uplink and downlink bandwidth used for voice traffic was about 5.5 kilobytes/s</li>
+<li>We observed for three different network setups that the SC v1.4 sent a refresh message to its SN over TCP. When SC was on a machine with a public IP address, a refresh message was sent every 120s</li>
+</ul>
+<p><a href="https://github.com/skypeopensource/tools" target="_blank" rel="external">Skype Tools Directory</a></p>
   
 	</div>
 		<footer class="article-footer clearfix">
