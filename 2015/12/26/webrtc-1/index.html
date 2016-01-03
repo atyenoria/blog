@@ -11,37 +11,25 @@
     
 
     
-    <meta name="description" content="siginaling serverHow To TCP NAT Traversal using Node.js and a STUN Server
-cjdns
-What is AF_INET, and why do I need it?
-turncoturn config
-restund
-return
-janus-gateway
-CHOOSING AND USING COTURN AS A STU">
+    <meta name="description" content="siginaling server
+Signaling is used to detect peers; and exchange prerequisites to setup media connections
+Differentiating signaling and ICE:
+CE which is stands for interactive connectivity establishm">
 <meta property="og:type" content="article">
 <meta property="og:title" content="webrtc-1">
 <meta property="og:url" content="http://atyenoria.github.io/blog/2015/12/26/webrtc-1/index.html">
 <meta property="og:site_name" content="Innchiki Memo">
-<meta property="og:description" content="siginaling serverHow To TCP NAT Traversal using Node.js and a STUN Server
-cjdns
-What is AF_INET, and why do I need it?
-turncoturn config
-restund
-return
-janus-gateway
-CHOOSING AND USING COTURN AS A STU">
-<meta property="og:updated_time" content="2016-01-03T03:01:38.000Z">
+<meta property="og:description" content="siginaling server
+Signaling is used to detect peers; and exchange prerequisites to setup media connections
+Differentiating signaling and ICE:
+CE which is stands for interactive connectivity establishm">
+<meta property="og:updated_time" content="2016-01-03T03:27:15.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="webrtc-1">
-<meta name="twitter:description" content="siginaling serverHow To TCP NAT Traversal using Node.js and a STUN Server
-cjdns
-What is AF_INET, and why do I need it?
-turncoturn config
-restund
-return
-janus-gateway
-CHOOSING AND USING COTURN AS A STU">
+<meta name="twitter:description" content="siginaling server
+Signaling is used to detect peers; and exchange prerequisites to setup media connections
+Differentiating signaling and ICE:
+CE which is stands for interactive connectivity establishm">
 
     
     <link rel="alternative" href="/atom.xml" title="Innchiki Memo" type="application/atom+xml">
@@ -117,7 +105,20 @@ CHOOSING AND USING COTURN AS A STU">
 		
 		</div>
 		
-		<h1 id="siginaling_server">siginaling server</h1><p><a href="http://blog.sogilis.com/post/87085010136/how-to-tcp-nat-traversal-using-nodejs-and-a-stun" target="_blank" rel="external">How To TCP NAT Traversal using Node.js and a STUN Server</a></p>
+		<h1 id="siginaling_server">siginaling server</h1><ul>
+<li>Signaling is used to detect peers; and exchange prerequisites to setup media connections</li>
+<li>Differentiating signaling and ICE:<ul>
+<li>CE which is stands for interactive connectivity establishment is a protocol used to capture public IP addresses of the user. It let us know:</li>
+<li>Public IP addresses of the user</li>
+<li>It is ipv4 or ipv6</li>
+<li>UDP is blocked or not; otherwise fallback to TCP; otherwise fallback to custom protocol.</li>
+<li>ICE is a process used to capture public IP addresses and ports of the current user. It NEVER exchanges signaling-data between two users</li>
+<li>RTP/RTCP packets flows from browser to TURN server to other browser.</li>
+<li>Media packets are shared over UDP ports; however signaling packets are shared over HTTP and/or TCP protocols.</li>
+</ul>
+</li>
+</ul>
+<p><a href="http://blog.sogilis.com/post/87085010136/how-to-tcp-nat-traversal-using-nodejs-and-a-stun" target="_blank" rel="external">How To TCP NAT Traversal using Node.js and a STUN Server</a></p>
 <p><a href="http://wiki.coffee0101.com/wiki/Cjdns" target="_blank" rel="external">cjdns</a></p>
 <p><a href="http://stackoverflow.com/questions/1593946/what-is-af-inet-and-why-do-i-need-it" target="_blank" rel="external">What is AF_INET, and why do I need it?</a></p>
 <h1 id="turn">turn</h1><p><a href="https://github.com/coturn/coturn/blob/master/examples/etc/turnserver.conf" target="_blank" rel="external">coturn config</a></p>
@@ -328,6 +329,10 @@ CHOOSING AND USING COTURN AS A STU">
 			
 		
 			
+				<li><a href="/blog/tags/book/" title="book">book<sup>1</sup></a></li>
+			
+		
+			
 				<li><a href="/blog/tags/hakusho/" title="hakusho">hakusho<sup>1</sup></a></li>
 			
 		
@@ -337,10 +342,6 @@ CHOOSING AND USING COTURN AS A STU">
 		
 			
 				<li><a href="/blog/tags/company/" title="company">company<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/blog/tags/book/" title="book">book<sup>1</sup></a></li>
 			
 		
 		</ul>
