@@ -11,25 +11,37 @@
     
 
     
-    <meta name="description" content="algorithmintroduction to video coding
-apiWebRTC 1.0: Real-time Communication Between Browsers W3C Editor’s Draft 22 December 2015
-Media Capture and Streams W3C Editor’s Draft 23 December 2015
-siginali">
+    <meta name="description" content="siginaling serverHow To TCP NAT Traversal using Node.js and a STUN Server
+cjdns
+What is AF_INET, and why do I need it?
+turncoturn config
+restund
+return
+janus-gateway
+CHOOSING AND USING COTURN AS A STU">
 <meta property="og:type" content="article">
 <meta property="og:title" content="webrtc-1">
 <meta property="og:url" content="http://atyenoria.github.io/blog/2015/12/26/webrtc-1/index.html">
 <meta property="og:site_name" content="Innchiki Memo">
-<meta property="og:description" content="algorithmintroduction to video coding
-apiWebRTC 1.0: Real-time Communication Between Browsers W3C Editor’s Draft 22 December 2015
-Media Capture and Streams W3C Editor’s Draft 23 December 2015
-siginali">
-<meta property="og:updated_time" content="2016-01-03T02:59:23.000Z">
+<meta property="og:description" content="siginaling serverHow To TCP NAT Traversal using Node.js and a STUN Server
+cjdns
+What is AF_INET, and why do I need it?
+turncoturn config
+restund
+return
+janus-gateway
+CHOOSING AND USING COTURN AS A STU">
+<meta property="og:updated_time" content="2016-01-03T03:01:38.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="webrtc-1">
-<meta name="twitter:description" content="algorithmintroduction to video coding
-apiWebRTC 1.0: Real-time Communication Between Browsers W3C Editor’s Draft 22 December 2015
-Media Capture and Streams W3C Editor’s Draft 23 December 2015
-siginali">
+<meta name="twitter:description" content="siginaling serverHow To TCP NAT Traversal using Node.js and a STUN Server
+cjdns
+What is AF_INET, and why do I need it?
+turncoturn config
+restund
+return
+janus-gateway
+CHOOSING AND USING COTURN AS A STU">
 
     
     <link rel="alternative" href="/atom.xml" title="Innchiki Memo" type="application/atom+xml">
@@ -101,16 +113,28 @@ siginali">
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">Contents</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#algorithm"><span class="toc-number">1.</span> <span class="toc-text">algorithm</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#api"><span class="toc-number">2.</span> <span class="toc-text">api</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#siginaling_server"><span class="toc-number">3.</span> <span class="toc-text">siginaling server</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ortc"><span class="toc-number">4.</span> <span class="toc-text">ortc</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#codec_video"><span class="toc-number">5.</span> <span class="toc-text">codec video</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#codec_audio"><span class="toc-number">6.</span> <span class="toc-text">codec audio</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#general"><span class="toc-number">7.</span> <span class="toc-text">general</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#service"><span class="toc-number">8.</span> <span class="toc-text">service</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#aquisition"><span class="toc-number">9.</span> <span class="toc-text">aquisition</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#rfc"><span class="toc-number">10.</span> <span class="toc-text">rfc</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#udp"><span class="toc-number">11.</span> <span class="toc-text">udp</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#turn"><span class="toc-number">12.</span> <span class="toc-text">turn</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#node_turn_server"><span class="toc-number">13.</span> <span class="toc-text">node turn server</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#turn_stun_service"><span class="toc-number">14.</span> <span class="toc-text">turn stun service</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#slide"><span class="toc-number">15.</span> <span class="toc-text">slide</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#wiki"><span class="toc-number">16.</span> <span class="toc-text">wiki</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#library"><span class="toc-number">17.</span> <span class="toc-text">library</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#auth"><span class="toc-number">18.</span> <span class="toc-text">auth</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#etc"><span class="toc-number">19.</span> <span class="toc-text">etc</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#crypt"><span class="toc-number">20.</span> <span class="toc-text">crypt</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#security"><span class="toc-number">21.</span> <span class="toc-text">security</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#extra"><span class="toc-number">22.</span> <span class="toc-text">extra</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#siginaling_server"><span class="toc-number">1.</span> <span class="toc-text">siginaling server</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#turn"><span class="toc-number">2.</span> <span class="toc-text">turn</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#node_turn_server"><span class="toc-number">3.</span> <span class="toc-text">node turn server</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#turn_stun_service"><span class="toc-number">4.</span> <span class="toc-text">turn stun service</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#algorithm"><span class="toc-number">5.</span> <span class="toc-text">algorithm</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#api"><span class="toc-number">6.</span> <span class="toc-text">api</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ortc"><span class="toc-number">7.</span> <span class="toc-text">ortc</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#codec_video"><span class="toc-number">8.</span> <span class="toc-text">codec video</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#codec_audio"><span class="toc-number">9.</span> <span class="toc-text">codec audio</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#general"><span class="toc-number">10.</span> <span class="toc-text">general</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#service"><span class="toc-number">11.</span> <span class="toc-text">service</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#aquisition"><span class="toc-number">12.</span> <span class="toc-text">aquisition</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#rfc"><span class="toc-number">13.</span> <span class="toc-text">rfc</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#udp"><span class="toc-number">14.</span> <span class="toc-text">udp</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#slide"><span class="toc-number">15.</span> <span class="toc-text">slide</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#wiki"><span class="toc-number">16.</span> <span class="toc-text">wiki</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#library"><span class="toc-number">17.</span> <span class="toc-text">library</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#auth"><span class="toc-number">18.</span> <span class="toc-text">auth</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#etc"><span class="toc-number">19.</span> <span class="toc-text">etc</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#crypt"><span class="toc-number">20.</span> <span class="toc-text">crypt</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#security"><span class="toc-number">21.</span> <span class="toc-text">security</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#extra"><span class="toc-number">22.</span> <span class="toc-text">extra</span></a></li></ol>
 		
 		</div>
 		
-		<h1 id="algorithm">algorithm</h1><p><a href="http://people.xiph.org/~tterribe/pubs/lca2012/auckland/intro_to_video1.pdf" target="_blank" rel="external">introduction to video coding</a></p>
-<h1 id="api">api</h1><p><a href="http://w3c.github.io/webrtc-pc/" target="_blank" rel="external">WebRTC 1.0: Real-time Communication Between Browsers W3C Editor’s Draft 22 December 2015</a></p>
-<p><a href="http://w3c.github.io/mediacapture-main/" target="_blank" rel="external">Media Capture and Streams W3C Editor’s Draft 23 December 2015</a></p>
-<h1 id="siginaling_server">siginaling server</h1><p><a href="http://blog.sogilis.com/post/87085010136/how-to-tcp-nat-traversal-using-nodejs-and-a-stun" target="_blank" rel="external">How To TCP NAT Traversal using Node.js and a STUN Server</a></p>
+		<h1 id="siginaling_server">siginaling server</h1><p><a href="http://blog.sogilis.com/post/87085010136/how-to-tcp-nat-traversal-using-nodejs-and-a-stun" target="_blank" rel="external">How To TCP NAT Traversal using Node.js and a STUN Server</a></p>
 <p><a href="http://wiki.coffee0101.com/wiki/Cjdns" target="_blank" rel="external">cjdns</a></p>
 <p><a href="http://stackoverflow.com/questions/1593946/what-is-af-inet-and-why-do-i-need-it" target="_blank" rel="external">What is AF_INET, and why do I need it?</a></p>
+<h1 id="turn">turn</h1><p><a href="https://github.com/coturn/coturn/blob/master/examples/etc/turnserver.conf" target="_blank" rel="external">coturn config</a></p>
+<p><a href="http://creytiv.com/restund.html" target="_blank" rel="external">restund</a></p>
+<p><a href="https://www.resiprocate.org/ReTurn_Overview" target="_blank" rel="external">return</a></p>
+<p><a href="https://github.com/meetecho/janus-gateway" target="_blank" rel="external">janus-gateway</a></p>
+<p><a href="http://www.furorteutonicus.eu/2014/09/30/choosing-and-using-coturn-as-a-stun-and-turn-server-for-ice/" target="_blank" rel="external">CHOOSING AND USING COTURN AS A STUN AND TURN SERVER FOR ICE</a></p>
+<h1 id="node_turn_server">node turn server</h1><p><a href="https://github.com/DamonOehlman/freeice" target="_blank" rel="external">freeice</a></p>
+<h1 id="turn_stun_service">turn stun service</h1><p><a href="http://xirsys.com/" target="_blank" rel="external">xirsys</a></p>
+<p><a href="http://influxis.com/" target="_blank" rel="external">influxis</a></p>
+<p><a href="https://easyrtc.com/" target="_blank" rel="external">easyrtc</a></p>
+<p><a href="https://www.skedans.com/#" target="_blank" rel="external">skedans</a></p>
+<p><a href="https://www.priologic.com/" target="_blank" rel="external">priologic</a></p>
+<p><a href="http://www.kurento.org/" target="_blank" rel="external">kurento</a></p>
+<h1 id="algorithm">algorithm</h1><p><a href="http://people.xiph.org/~tterribe/pubs/lca2012/auckland/intro_to_video1.pdf" target="_blank" rel="external">introduction to video coding</a></p>
+<h1 id="api">api</h1><p><a href="http://w3c.github.io/webrtc-pc/" target="_blank" rel="external">WebRTC 1.0: Real-time Communication Between Browsers W3C Editor’s Draft 22 December 2015</a></p>
+<p><a href="http://w3c.github.io/mediacapture-main/" target="_blank" rel="external">Media Capture and Streams W3C Editor’s Draft 23 December 2015</a></p>
 <h1 id="ortc">ortc</h1><p><a href="http://openpeer.org/" target="_blank" rel="external">openpeer</a></p>
 <p><a href="http://ortc.org/" target="_blank" rel="external">ortc.org</a></p>
 <p><a href="http://ortc.org/wp-content/uploads/2014/04/ortc.html" target="_blank" rel="external">Object RTC (ORTC) API for WebRTC</a></p>
@@ -183,18 +207,6 @@ siginali">
 <p><a href="https://tools.ietf.org/html/rfc5764" target="_blank" rel="external">RFC5764 Datagram Transport Layer Security (DTLS) Extension to Establish Keys for the Secure Real-time Transport Protocol (SRTP)</a></p>
 <p><a href="https://tools.ietf.org/html/rfc3828" target="_blank" rel="external">RFC3828 The Lightweight User Datagram Protocol (UDP-Lite)</a></p>
 <p><a href="https://tools.ietf.org/html/rfc3711" target="_blank" rel="external">RFC3711 The Secure Real-time Transport Protocol (SRTP)</a></p>
-<h1 id="turn">turn</h1><p><a href="https://github.com/coturn/coturn/blob/master/examples/etc/turnserver.conf" target="_blank" rel="external">coturn config</a></p>
-<p><a href="http://creytiv.com/restund.html" target="_blank" rel="external">restund</a></p>
-<p><a href="https://www.resiprocate.org/ReTurn_Overview" target="_blank" rel="external">return</a></p>
-<p><a href="https://github.com/meetecho/janus-gateway" target="_blank" rel="external">janus-gateway</a></p>
-<p><a href="http://www.furorteutonicus.eu/2014/09/30/choosing-and-using-coturn-as-a-stun-and-turn-server-for-ice/" target="_blank" rel="external">CHOOSING AND USING COTURN AS A STUN AND TURN SERVER FOR ICE</a></p>
-<h1 id="node_turn_server">node turn server</h1><p><a href="https://github.com/DamonOehlman/freeice" target="_blank" rel="external">freeice</a></p>
-<h1 id="turn_stun_service">turn stun service</h1><p><a href="http://xirsys.com/" target="_blank" rel="external">xirsys</a></p>
-<p><a href="http://influxis.com/" target="_blank" rel="external">influxis</a></p>
-<p><a href="https://easyrtc.com/" target="_blank" rel="external">easyrtc</a></p>
-<p><a href="https://www.skedans.com/#" target="_blank" rel="external">skedans</a></p>
-<p><a href="https://www.priologic.com/" target="_blank" rel="external">priologic</a></p>
-<p><a href="http://www.kurento.org/" target="_blank" rel="external">kurento</a></p>
 <h1 id="slide">slide</h1><p><a href="http://sssslide.com/www.slideshare.net/KensakuKOMATSU/web-apiwebrtc-streams-push-api-etc" target="_blank" rel="external">最新Web 通信系API総まくり！WebRTC, Streams, Push api etc.</a></p>
 <p><a href="http://sssslide.com/www.slideshare.net/KensakuKOMATSU/p2p-webrtc" target="_blank" rel="external">ビデオ通話・P2Pがコモディティ化する世界 WebRTCによるこれからを探る</a></p>
 <p><a href="http://www.slideshare.net/td-nttcom/webrtc-tpac-2015" target="_blank" rel="external">TPAC 2015 WebRTC WG 最新レポート</a></p>
@@ -289,7 +301,7 @@ siginali">
   <div id="toc" class="toc-aside">
   <strong class="toc-title">Contents</strong>
  
- <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#algorithm"><span class="toc-number">1.</span> <span class="toc-text">algorithm</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#api"><span class="toc-number">2.</span> <span class="toc-text">api</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#siginaling_server"><span class="toc-number">3.</span> <span class="toc-text">siginaling server</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ortc"><span class="toc-number">4.</span> <span class="toc-text">ortc</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#codec_video"><span class="toc-number">5.</span> <span class="toc-text">codec video</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#codec_audio"><span class="toc-number">6.</span> <span class="toc-text">codec audio</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#general"><span class="toc-number">7.</span> <span class="toc-text">general</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#service"><span class="toc-number">8.</span> <span class="toc-text">service</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#aquisition"><span class="toc-number">9.</span> <span class="toc-text">aquisition</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#rfc"><span class="toc-number">10.</span> <span class="toc-text">rfc</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#udp"><span class="toc-number">11.</span> <span class="toc-text">udp</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#turn"><span class="toc-number">12.</span> <span class="toc-text">turn</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#node_turn_server"><span class="toc-number">13.</span> <span class="toc-text">node turn server</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#turn_stun_service"><span class="toc-number">14.</span> <span class="toc-text">turn stun service</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#slide"><span class="toc-number">15.</span> <span class="toc-text">slide</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#wiki"><span class="toc-number">16.</span> <span class="toc-text">wiki</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#library"><span class="toc-number">17.</span> <span class="toc-text">library</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#auth"><span class="toc-number">18.</span> <span class="toc-text">auth</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#etc"><span class="toc-number">19.</span> <span class="toc-text">etc</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#crypt"><span class="toc-number">20.</span> <span class="toc-text">crypt</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#security"><span class="toc-number">21.</span> <span class="toc-text">security</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#extra"><span class="toc-number">22.</span> <span class="toc-text">extra</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#siginaling_server"><span class="toc-number">1.</span> <span class="toc-text">siginaling server</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#turn"><span class="toc-number">2.</span> <span class="toc-text">turn</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#node_turn_server"><span class="toc-number">3.</span> <span class="toc-text">node turn server</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#turn_stun_service"><span class="toc-number">4.</span> <span class="toc-text">turn stun service</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#algorithm"><span class="toc-number">5.</span> <span class="toc-text">algorithm</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#api"><span class="toc-number">6.</span> <span class="toc-text">api</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ortc"><span class="toc-number">7.</span> <span class="toc-text">ortc</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#codec_video"><span class="toc-number">8.</span> <span class="toc-text">codec video</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#codec_audio"><span class="toc-number">9.</span> <span class="toc-text">codec audio</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#general"><span class="toc-number">10.</span> <span class="toc-text">general</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#service"><span class="toc-number">11.</span> <span class="toc-text">service</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#aquisition"><span class="toc-number">12.</span> <span class="toc-text">aquisition</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#rfc"><span class="toc-number">13.</span> <span class="toc-text">rfc</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#udp"><span class="toc-number">14.</span> <span class="toc-text">udp</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#slide"><span class="toc-number">15.</span> <span class="toc-text">slide</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#wiki"><span class="toc-number">16.</span> <span class="toc-text">wiki</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#library"><span class="toc-number">17.</span> <span class="toc-text">library</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#auth"><span class="toc-number">18.</span> <span class="toc-text">auth</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#etc"><span class="toc-number">19.</span> <span class="toc-text">etc</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#crypt"><span class="toc-number">20.</span> <span class="toc-text">crypt</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#security"><span class="toc-number">21.</span> <span class="toc-text">security</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#extra"><span class="toc-number">22.</span> <span class="toc-text">extra</span></a></li></ol>
  
   </div>
 
