@@ -77,6 +77,79 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/blog/2016/01/03/webrtc-4-5/" title="webrtc-4.5" itemprop="url">webrtc-4.5</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/blog/about" title="akinori nakajima" target="_blank" itemprop="author">akinori nakajima</a>
+		
+  <p class="article-time">
+    <time datetime="2016-01-03T14:47:22.000Z" itemprop="datePublished"> Published 2016-01-03</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> signalingChannel = createSignalingChannel();</span><br><span class="line"><span class="keyword">var</span> pc;</span><br><span class="line"><span class="keyword">var</span> configuration = ...;</span><br><span class="line"></span><br><span class="line"><span class="comment">// run start(true) to initiate a call</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">start</span>(<span class="params">isCaller</span>) </span>&#123;</span><br><span class="line">    pc = <span class="keyword">new</span> RTCPeerConnection(configuration);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// send any ice candidates to the other peer</span></span><br><span class="line">    pc.onicecandidate = <span class="function"><span class="keyword">function</span> (<span class="params">evt</span>) </span>&#123;</span><br><span class="line">        signalingChannel.send(<span class="built_in">JSON</span>.stringify(&#123; <span class="string">"candidate"</span>: evt.candidate &#125;));</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// once remote stream arrives, show it in the remote video element</span></span><br><span class="line">    pc.onaddstream = <span class="function"><span class="keyword">function</span> (<span class="params">evt</span>) </span>&#123;</span><br><span class="line">        remoteView.src = URL.createObjectURL(evt.stream);</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// get the local stream, show it in the local video element and send it</span></span><br><span class="line">    navigator.getUserMedia(&#123; <span class="string">"audio"</span>: <span class="literal">true</span>, <span class="string">"video"</span>: <span class="literal">true</span> &#125;, <span class="function"><span class="keyword">function</span> (<span class="params">stream</span>) </span>&#123;</span><br><span class="line">        selfView.src = URL.createObjectURL(stream);</span><br><span class="line">        pc.addStream(stream);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (isCaller)</span><br><span class="line">            pc.createOffer(gotDescription);</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            pc.createAnswer(pc.remoteDescription, gotDescription);</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">function</span> <span class="title">gotDescription</span>(<span class="params">desc</span>) </span>&#123;</span><br><span class="line">            pc.setLocalDescription(desc);</span><br><span class="line">            signalingChannel.send(<span class="built_in">JSON</span>.stringify(&#123; <span class="string">"sdp"</span>: desc &#125;));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">signalingChannel.onmessage = <span class="function"><span class="keyword">function</span> (<span class="params">evt</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!pc)</span><br><span class="line">        start(<span class="literal">false</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> signal = <span class="built_in">JSON</span>.parse(evt.data);</span><br><span class="line">    <span class="keyword">if</span> (signal.sdp)</span><br><span class="line">        pc.setRemoteDescription(<span class="keyword">new</span> RTCSessionDescription(signal.sdp));</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        pc.addIceCandidate(<span class="keyword">new</span> RTCIceCandidate(signal.candidate));</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Alice and Bob exchange network information<ul>
+<li>1 Alice creates an RTCPeerConnection object with an onicecandidate handler.</li>
+<li>2 The handler is run when network candidates become available.</li>
+<li>3 Alice sends serialized candidate data to Bob, via whatever signaling channel they are using: WebSocket or some other mechanism.</li>
+<li>4 When Bob gets a candidate message from Alice, he calls addIceCandidate, to add the candidate to the remote peer description.</li>
+</ul>
+</li>
+<li>Signaling to exchange media configuration information proceeds by exchanging an offer and an answer using the Session Description Protocol (SDP):<ul>
+<li>1 Alice runs the RTCPeerConnection createOffer() method. The callback argument of this is passed an RTCSessionDescription: Alice’s local session description</li>
+<li>2 in the callback, Alice sets the local description using setLocalDescription() and then sends this session description to Bob via their signaling channel. Note that RTCPeerConnection won’t start gathering candidates until setLocalDescription() is called: this is codified in JSEP IETF draft.</li>
+<li>3 Bob sets the description Alice sent him as the remote description using setRemoteDescription().</li>
+<li>4 Bob runs the RTCPeerConnection createAnswer() method, passing it the remote description he got from Alice, so a local session can be generated that is compatible with hers. The createAnswer() callback is passed an RTCSessionDescription: Bob sets that as the local description and sends it to Alice.</li>
+<li>5 When Alice gets Bob’s session description, she sets that as the remote description with setRemoteDescription.</li>
+<li>6 Ping!</li>
+</ul>
+</li>
+</ul>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/blog/tags/webrtc/">webrtc</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/blog/2016/01/03/webrtc-4/" title="webrtc-4" itemprop="url">webrtc-4</a>
   </h1>
   <p class="article-author">By
@@ -1429,81 +1502,9 @@
 
 
 
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/blog/2015/08/06/business0/" title="business0" itemprop="url">business0</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/blog/about" title="akinori nakajima" target="_blank" itemprop="author">akinori nakajima</a>
-		
-  <p class="article-time">
-    <time datetime="2015-08-06T01:39:50.000Z" itemprop="datePublished"> Published 2015-08-06</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h1 id="日経産業">日経産業</h1><p>・円安、海外挙式</p>
-<p>・文章自動要約：ニノー</p>
-<p>・フィリピン就労管理</p>
-<p>・ミールキット宅配：ハローフレッシュ</p>
-<p>・</p>
-<h1 id="事業アイデア６要素">事業アイデア６要素</h1><p>・ハイブリッド化</p>
-<pre><code>技術視点、市場視点、デザイン視点、社会・人間視点を単発かつ複数組み合わせる
-</code></pre><p>・狙う分野と狙わない分野の明示</p>
-<pre><code>絶対にやらない事は？
-やる分野は＝大きなイノベーションが起きていない、規制緩和が起きていないところ？
-</code></pre><p>・カスタマーペインの大きい分野</p>
-<pre><code>切実なニーズが存在
-</code></pre><p>・社会のメガトレンドと一致</p>
-<pre><code>近年の傾向は精神的安らぎ、健康志向、働き方のダイバーシティ、高齢化社会、貧困層ビジネス、
-</code></pre><p>・異業種で同様な課題解決手法</p>
-<pre><code>同じようなニーズが存在しているかどうか
-</code></pre><p>・多様なチームで考える</p>
-<pre><code>成功確率増加？？
-</code></pre>
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/blog/tags/business/">business</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
 
   <nav id="page-nav" class="clearfix">
-    <a class="extend prev" rel="prev" href="/"><span></span>Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+    <a class="extend prev" rel="prev" href="/"><span></span>Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/blog/page/3/">3</a><a class="extend next" rel="next" href="/blog/page/3/">Next<span></span></a>
   </nav>
 
 </div>
@@ -1549,6 +1550,10 @@
 		
 			
 				<li><a href="/blog/tags/edtech/" title="edtech">edtech<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/blog/tags/comapany/" title="comapany">comapany<sup>1</sup></a></li>
 			
 		
 		</ul>
