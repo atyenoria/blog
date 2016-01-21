@@ -77,6 +77,508 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/blog/2016/01/03/webrtc-4-5/" title="webrtc-4.5" itemprop="url">webrtc-4.5</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/blog/about" title="akinori nakajima" target="_blank" itemprop="author">akinori nakajima</a>
+		
+  <p class="article-time">
+    <time datetime="2016-01-03T14:47:22.000Z" itemprop="datePublished"> Published 2016-01-03</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> signalingChannel = createSignalingChannel();</span><br><span class="line"><span class="keyword">var</span> pc;</span><br><span class="line"><span class="keyword">var</span> configuration = ...;</span><br><span class="line"></span><br><span class="line"><span class="comment">// run start(true) to initiate a call</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">start</span>(<span class="params">isCaller</span>) </span>&#123;</span><br><span class="line">    pc = <span class="keyword">new</span> RTCPeerConnection(configuration);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// send any ice candidates to the other peer</span></span><br><span class="line">    pc.onicecandidate = <span class="function"><span class="keyword">function</span> (<span class="params">evt</span>) </span>&#123;</span><br><span class="line">        signalingChannel.send(<span class="built_in">JSON</span>.stringify(&#123; <span class="string">"candidate"</span>: evt.candidate &#125;));</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// once remote stream arrives, show it in the remote video element</span></span><br><span class="line">    pc.onaddstream = <span class="function"><span class="keyword">function</span> (<span class="params">evt</span>) </span>&#123;</span><br><span class="line">        remoteView.src = URL.createObjectURL(evt.stream);</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// get the local stream, show it in the local video element and send it</span></span><br><span class="line">    navigator.getUserMedia(&#123; <span class="string">"audio"</span>: <span class="literal">true</span>, <span class="string">"video"</span>: <span class="literal">true</span> &#125;, <span class="function"><span class="keyword">function</span> (<span class="params">stream</span>) </span>&#123;</span><br><span class="line">        selfView.src = URL.createObjectURL(stream);</span><br><span class="line">        pc.addStream(stream);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (isCaller)</span><br><span class="line">            pc.createOffer(gotDescription);</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            pc.createAnswer(pc.remoteDescription, gotDescription);</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">function</span> <span class="title">gotDescription</span>(<span class="params">desc</span>) </span>&#123;</span><br><span class="line">            pc.setLocalDescription(desc);</span><br><span class="line">            signalingChannel.send(<span class="built_in">JSON</span>.stringify(&#123; <span class="string">"sdp"</span>: desc &#125;));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">signalingChannel.onmessage = <span class="function"><span class="keyword">function</span> (<span class="params">evt</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!pc)</span><br><span class="line">        start(<span class="literal">false</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> signal = <span class="built_in">JSON</span>.parse(evt.data);</span><br><span class="line">    <span class="keyword">if</span> (signal.sdp)</span><br><span class="line">        pc.setRemoteDescription(<span class="keyword">new</span> RTCSessionDescription(signal.sdp));</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        pc.addIceCandidate(<span class="keyword">new</span> RTCIceCandidate(signal.candidate));</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Alice and Bob exchange network information<ul>
+<li>1 Alice creates an RTCPeerConnection object with an onicecandidate handler.</li>
+<li>2 The handler is run when network candidates become available.</li>
+<li>3 Alice sends serialized candidate data to Bob, via whatever signaling channel they are using: WebSocket or some other mechanism.</li>
+<li>4 When Bob gets a candidate message from Alice, he calls addIceCandidate, to add the candidate to the remote peer description.</li>
+</ul>
+</li>
+<li>Signaling to exchange media configuration information proceeds by exchanging an offer and an answer using the Session Description Protocol (SDP):<ul>
+<li>1 Alice runs the RTCPeerConnection createOffer() method. The callback argument of this is passed an RTCSessionDescription: Alice’s local session description</li>
+<li>2 in the callback, Alice sets the local description using setLocalDescription() and then sends this session description to Bob via their signaling channel. Note that RTCPeerConnection won’t start gathering candidates until setLocalDescription() is called: this is codified in JSEP IETF draft.</li>
+<li>3 Bob sets the description Alice sent him as the remote description using setRemoteDescription().</li>
+<li>4 Bob runs the RTCPeerConnection createAnswer() method, passing it the remote description he got from Alice, so a local session can be generated that is compatible with hers. The createAnswer() callback is passed an RTCSessionDescription: Bob sets that as the local description and sends it to Alice.</li>
+<li>5 When Alice gets Bob’s session description, she sets that as the remote description with setRemoteDescription.</li>
+<li>6 Ping!</li>
+</ul>
+</li>
+</ul>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/blog/tags/webrtc/">webrtc</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/blog/2016/01/03/webrtc-4/" title="webrtc-4" itemprop="url">webrtc-4</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/blog/about" title="akinori nakajima" target="_blank" itemprop="author">akinori nakajima</a>
+		
+  <p class="article-time">
+    <time datetime="2016-01-03T03:44:04.000Z" itemprop="datePublished"> Published 2016-01-03</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p><a href="http://chimera.labs.oreilly.com/books/1230000000545/index.html" target="_blank" rel="external">High Performance Browser Networking</a></p>
+<p><a href="http://deeppai.com/2014/01/26/getting-started-with-webrtc/" target="_blank" rel="external">Getting Started with WebRTC</a></p>
+<ul>
+<li>WebRTC has also been integrated with WebKitGTK+ and Qt native apps</li>
+<li>RTCPeerConnection is currently implemented by Chrome and Opera as webkitRTCPeerConnection and by Firefox as mozRTCPeerConnection</li>
+<li>MediaStream: get access to data streams, such as from the user’s camera and microphone.</li>
+<li>RTCPeerConnection: audio or video calling, with facilities for encryption and bandwidth management.</li>
+<li>RTCDataChannel: peer-to-peer communication of generic data.</li>
+<li>The MediaStream API represents synchronized streams of media. For example, a stream taken from camera and microphone input has synchronized video and audio tracks</li>
+<li>The getUserMedia() method takes three parameters:<ul>
+<li>A constraints object.</li>
+<li>A success callback which, if called, is passed a MediaStream.</li>
+<li>A failure callback which, if called, is passed an error object.</li>
+</ul>
+</li>
+<li>In Chrome or Opera, the URL.createObjectURL() method converts a MediaStream to a Blob URL which can be set as the src of a video element</li>
+<li>The intention is eventually to enable a MediaStream for any streaming data source, not just a camera or microphone. This would enable streaming from disc, or from arbitrary data sources such as sensors or other inputs.</li>
+<li><p>Note that getUserMedia() must be used on a server, not the local file system, otherwise a PERMISSION_DENIED: 1 error will be thrown.</p>
+</li>
+<li><p>Constraints have been implemented since Chrome, Firefox and Opera. These can be used to set values for video resolution for getUserMedia() and RTCPeerConnection addStream() calls</p>
+</li>
+<li>Chrome apps also make it possible to share a live ‘video’ of a single browser tab or the entire desktop via chrome.tabCapture and chrome.desktopCapture APIs</li>
+<li>Signaling methods and protocols are not specified by WebRTC: signaling is not part of the RTCPeerConnection APIs</li>
+<li>Signaling is used to exchange three types of information:<ul>
+<li>Session control messages: to initialize or close communication and report errors.</li>
+<li>Network configuration: to the outside world, what’s my computer’s IP address and port?</li>
+<li>Media capabilities: what codecs and resolutions can be handled by my browser and the browser it wants to communicate with?</li>
+</ul>
+</li>
+</ul>
+<p><a href="https://bitbucket.org/webrtc/codelab" target="_blank" rel="external">WebRTC codelab</a></p>
+<p><a href="https://webcamtoy.com/app/" target="_blank" rel="external">Webcam Toy</a></p>
+<p><a href="http://idevelop.ro/ascii-camera/" target="_blank" rel="external">ASCII Camera</a></p>
+<p><a href="http://www.html5rocks.com/en/" target="_blank" rel="external">html5rocks</a></p>
+<p><a href="https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/webfont-optimization?hl=ja" target="_blank" rel="external">ウェブフォントの最適化</a></p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/blog/tags/webrtc/">webrtc</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/blog/2016/01/02/company-1/" title="company-1.md" itemprop="url">company-1.md</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/blog/about" title="akinori nakajima" target="_blank" itemprop="author">akinori nakajima</a>
+		
+  <p class="article-time">
+    <time datetime="2016-01-02T05:01:50.000Z" itemprop="datePublished"> Published 2016-01-02</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <p><a href="https://ja.wikipedia.org/wiki/%E8%A4%87%E5%BC%8F%E7%B0%BF%E8%A8%98" target="_blank" rel="external">複式簿記</a></p>
+<p><a href="https://ja.wikipedia.org/wiki/%E6%9C%89%E9%99%90%E8%B2%AC%E4%BB%BB%E4%BA%8B%E6%A5%AD%E7%B5%84%E5%90%88" target="_blank" rel="external">有限責任事業組合</a></p>
+<p><a href="http://kigyousien.net/" target="_blank" rel="external">起業する前に知っておきたい6つのポイント（法人化のメリット・デメリット）</a></p>
+<p><a href="https://ja.wikipedia.org/wiki/%E9%9D%92%E8%89%B2%E7%94%B3%E5%91%8A" target="_blank" rel="external">青色申告</a></p>
+<ul>
+<li>青色申告（あおいろしんこく）とは、複式簿記等の手法に基づいて帳簿を記載し、その記帳から正しい所得や所得税及び法人税を計算して申告することである。<br>-</li>
+</ul>
+<p><a href="https://ja.wikipedia.org/wiki/%E7%94%B3%E5%91%8A%E7%B4%8D%E7%A8%8E%E5%88%B6%E5%BA%A6" target="_blank" rel="external">申告納税制度</a></p>
+<ul>
+<li>国の税金について納税者自らが、税務署へ所得などの申告を行うことにより税額を確定させ、この確定した税額を納税者が自ら納付する制度である</li>
+</ul>
+<p><a href="https://ja.wikipedia.org/wiki/%E7%A7%9F%E7%A8%8E" target="_blank" rel="external">租税</a></p>
+<ul>
+<li>租税（そぜい）・税（ぜい）とは、法令の定めに基づいて、商売、所得、商品、取引等の行為や財産に対して、国や地方公共団体（政府等）が国民や住民から徴収する金銭である</li>
+<li>租税には次の4つの機能・効果<ul>
+<li>公共サービスの費用調達機能</li>
+<li>所得の再分配機能</li>
+<li>経済への阻害効果</li>
+<li>景気の調整機能</li>
+</ul>
+</li>
+</ul>
+<p>賦課</p>
+<ul>
+<li>租税などを割り当てて負担させること</li>
+</ul>
+<p><a href="https://ja.wikipedia.org/wiki/%E7%99%BD%E8%89%B2%E7%94%B3%E5%91%8A" target="_blank" rel="external">白色申告</a></p>
+<ul>
+<li>比較的に簡易で事務負担が軽い方法で経理処理を行い、その記帳に基づき所得税及び法人税を計算して申告することである。</li>
+<li>白色申告では、税法上認められた青色申告特有の各種特典（所得税法においては青色申告特別控除、専従者給与、純損失の繰越や減価償却等の優遇措置、法人税法上においては欠損金の繰越）が無いか、縮小される<br>-</li>
+</ul>
+<p><a href="https://ja.wikipedia.org/wiki/%E7%A7%9F%E7%A8%8E%E7%89%B9%E5%88%A5%E6%8E%AA%E7%BD%AE%E6%B3%95" target="_blank" rel="external">租税特別措置法</a></p>
+<p><a href="https://ja.wikipedia.org/wiki/%E6%89%80%E5%BE%97%E7%A8%8E%E6%B3%95" target="_blank" rel="external">所得税法</a></p>
+<ul>
+<li>個人の所得に対する税金について定めた日本の法律</li>
+<li>建前としては所得の合計額をまとめて課税する総合所得税の方式を採用している。一方で、所得分類の存在など、源泉ごとに所得を分けそれぞれに異なった税率を適用する分類所得税的な要素もある</li>
+<li>源泉徴収義務者<ul>
+<li>人を雇って給料を払うときに支払金額に応じた所得税を差し引き、実際に支払った月の翌月10日までに国に納める義務のある会社・個人</li>
+</ul>
+</li>
+</ul>
+<p><a href="https://ja.wikipedia.org/wiki/%E6%BA%90%E6%B3%89%E5%BE%B4%E5%8F%8E" target="_blank" rel="external">源泉徴収</a></p>
+<ul>
+<li>給与・報酬・利子・配当・公的年金等の支払者が、それらを支払う際に所得税などを差し引いて国に納付する制度である。</li>
+<li>源泉徴収は所得税を給与や報酬等から控除することを言う</li>
+<li>個人の住民税の場合は特別徴収、社会保険料（健康保険、厚生年金保険料や雇用保険料等）の場合は単に徴収といい、総括して天引きとも呼ばれる</li>
+<li>源泉徴収された所得税の差額調整については、サラリーマンや公務員などの給与所得者は年末調整、自営業者などは確定申告、金融商品取引業者等で開設した特定口座（源泉徴収口座）内所得の申告不要などの制度がある。</li>
+</ul>
+<p><a href="https://ja.wikipedia.org/wiki/%E5%B9%B4%E6%9C%AB%E8%AA%BF%E6%95%B4" target="_blank" rel="external">年末調整</a></p>
+<ul>
+<li>サラリーマンや公務員などの給与所得者に対して事業所等が支払った1年間（1月〜12月）の給料・賞与や賃金及び源泉徴収した所得税等について、原則として12月の最終支払日に再計算し所得税の過不足を調整すること。</li>
+<li>一般のサラリーマンや公務員は年末調整をすることによってその年の所得税の税額が確定することから、確定申告をする必要はない。しかし、給与の年収が2,000万円を超える場合、2か所以上の事業所などから給与・賃金を受けている場合、副収入があるため20万円を超える所得がある場合などは、基本的に確定申告をしなければならない。</li>
+</ul>
+<p><a href="https://ja.wikipedia.org/wiki/%E7%A2%BA%E5%AE%9A%E7%94%B3%E5%91%8A" target="_blank" rel="external">確定申告</a></p>
+<ul>
+<li>個人が、その年1月1日から12月31日までを課税期間として、その期間内の収入・支出、医療費や寄付、扶養家族状況などから所得を計算した申告書を税務署へ提出し、納付すべき所得税額を確定すること</li>
+<li>法人が、原則として定款に定められた事業年度を課税期間としてその期間内の所得を計算した申告書を税務署へ提出し、納付すべき法人税額を確定すること</li>
+<li>個人事業主、不動産賃貸業を営む個人、不動産の譲渡による利益がある者や一定の受取保険金がある者などは、収入や費用を自ら申告しなければならない。</li>
+<li>申告時期は、毎年度、翌年2月16日から3月15日までの1か月間である</li>
+<li>ただし、源泉徴収額が所得税額より多く、還付を受ける場合（=還付申告）は申告期限前にあたる翌年1月1日（税務署の窓口に提出する場合は、官庁御用始めとなる1月4日以降の最初の平日）から2月15日までの間でも申告書を提出することができる</li>
+<li>申告時期以前に納税した場合、その税金は申告時期が到来するまでは税として納付すべき原因がないのに納付済みになっている「過誤納金」として扱われるため注意が必要である</li>
+<li>定申告により納付すべき税金がある場合、期限後の申告には無申告加算税</li>
+<li>確定申告書の提出自体は（無申告加算税や延滞税の賦課を承知の上で行うのであれば）前述の時効が訪れない限り、一年中いつでも可能である</li>
+<li>確定申告をした後に申告内容に誤りや変動などが判明し、納めるべき税金が過大となる場合は更正の請求、過少となる場合は修正申告を行う</li>
+<li>修正申告には税に関する時効の成立まで、期限はない。税務署による税務調査を受けた後で修正申告をしたり税務署より税額の更正（増）を受けた場合は、過少申告加算税が加算されることがある。納付期限後の追納付には延滞税が加算されることがある。</li>
+<li>確定申告の必要がある場合<ul>
+<li>給与所得がある場合</li>
+<li>公的年金（雑所得）のみの場合</li>
+<li>退職所得がある場合</li>
+<li>先物取引、オプション取引、外国為替証拠金取引、CFD取引などによる利益がある場合</li>
+<li>株取引や先物取引、外国為替証拠金取引などで確定損失がでた場合</li>
+</ul>
+</li>
+<li>所得税の計算<ul>
+<li>1月1日から12月31日までの全所得をもとに計算</li>
+<li>収入金額（支払金額）-必要経費=所得金額（給与所得控除後の金額）</li>
+<li>所得金額-所得控除（所得控除の合計額）=課税所得金額</li>
+<li>課税所得金額×税率[5]=所得税額</li>
+<li>所得税額-税額控除（住宅借入金等特別控除など）=申告納税額</li>
+</ul>
+</li>
+<li>申告納税額＞源泉徴収税額： 差額の納税額を、原則として3月15日までに金融機関で納税しなければならない。</li>
+<li>申告納税額＜源泉徴収税額： 差額の還付額が、後日指定した金融機関に振り込まれるか郵便局で受け取る。</li>
+</ul>
+<p><a href="https://ja.wikipedia.org/wiki/%E5%80%8B%E4%BA%BA%E4%BA%8B%E6%A5%AD%E4%B8%BB" target="_blank" rel="external">個人事業主</a></p>
+<ul>
+<li>株式会社等の法人を設立せずに自ら事業を行っている個人をいう</li>
+<li>個人事業主とは、会社経営者でもサラリーマンでも公務員でもアルバイトでも無職でもない者の総称と言うことである（ただし、副業として個人事業主となることは可能である）</li>
+<li>個人事業主の利益には所得税が課せられるのに対し、法人は法人税が課せられるが、 所得税は超過累進課税で計算されるため、利益を得れば得るほど税金をひかれる一方、法人税の税率は常に一定なので、所得がある水準を超える場合、法人の方が有利となることなどである。</li>
+<li>一般に個人事業主には所得税の他、個人住民税、個人事業税及び消費税が課される</li>
+</ul>
+<p><a href="https://ja.wikipedia.org/wiki/%E5%90%88%E5%90%8C%E4%BC%9A%E7%A4%BE" target="_blank" rel="external">合同会社</a></p>
+<ul>
+<li>合同会社（ごうどうがいしゃ）とは、日本における会社形態の1つである。アメリカ合衆国のLLC（Limited Liability Company）をモデルとして導入された。</li>
+<li>平成18年（2006年）5月1日施行の会社法により新しく設けられた会社形態である。</li>
+<li>合同会社のすべての社員（=出資者）は、株式会社の出資者と同様に、会社債務に対して有限責任である。このことは、合名会社の社員（=出資者）および合資会社の無限責任社員（=出資者）が会社の債務に対し無制限・無条件に責任を負うことと対照的である。</li>
+<li>最低資本金制度の撤廃以後、小規模の営利法人を株式会社形態で設立するハードルは相当に下がったが、法人を設立する事そのもののコスト（法人登記費用）は合同会社に分がある</li>
+<li>アメリカにおいてLLCが数多く設立されるようになった大きな理由の一つであるパス・スルー課税（法人の所得ではなく、出資者の所得への課税）は、日本では現在のところ認められていない（類似の制度で、パス・スルー課税ができるものとして「有限責任事業組合」（日本版LLP）がある）</li>
+<li>特徴<ul>
+<li>社員とは会社の構成員=出資者のことであり、一般社会でいう社員（会社員、従業員）とは異なる</li>
+<li>所有と経営が一致しているのが持分会社（合名会社・合資会社・合同会社）の社員</li>
+<li>持分会社は、相互に人的信頼関係を有し日常的に会合できる少人数の者が出資して共同で事業を営むことを予定した会社類型</li>
+<li>会社の内部関係（社員相互間および会社・社員間の法律関係）の規律については原則として定款自治が認められ、その設計が自由である。株式会社の取締役・執行役のような機関は置かれず、原則として全社員が自ら会社の業務執行に当たる（590条第1項）</li>
+<li>原則として定款の作成・変更には全社員の一致を要する（575条、637条）。つまり、社員一人一人がこれらの事項について拒否権を有していることになる</li>
+<li>社員の持分の譲渡、新たな社員の加入も他の社員全部の同意を必要とする</li>
+<li>利益分配、議決権分配も、出資割合とは切り離して自由に認められる（非公開会社たる株式会社では、機関設計は自由だが、株主平等原則がある。旧有限会社とも異なる）</li>
+<li>持分の払戻しは請求できず、また、退社に際しての払戻しは規制される</li>
+<li>持分の全部又は一部を譲り受けることができず、取得した場合には、消滅する</li>
+<li>各社員は出資義務を負い、信用や労務の出資は認められておらず、また設立の登記をする時までに全額払い込みを要する</li>
+<li>社員は全て有限責任社員であり（576条第4項）、また社員は間接有限責任のみを負う</li>
+</ul>
+</li>
+<li>持分会社としての特徴に鑑みると、合同会社は、基本的には非公開の株式会社よりもさらに閉鎖性を有している</li>
+<li>会社を設立する際に作成する一番最初の定款を原始定款と言うが、合同会社は、株式会社等を設立する際であれば必要な公証人による認証が不要であり、費用面での負担を抑えることができる</li>
+<li>通常の紙ベースで定款を作成して法務局へ提出すると、印紙税法により定款に4万円の収入印紙を貼付しなければならないのが、電子定款で作成することで全額が免除されるものである</li>
+<li>電子定款には、電子署名を行うことが必要である。現実には行政書士や司法書士に依頼して（手数料を支払って）、定款の電子署名を行うことが多い</li>
+<li>電子定款には、電子署名を行うことが必要である。現実には行政書士や司法書士に依頼して（手数料を支払って）、定款の電子署名を行うことが多い。この際、定款の作成、電子署名、登記手続きを一括して依頼することが一般的であるが、自身で定款を作成し、電子署名のみを依頼し、以後の登記手続きはまた自身で行うといったこともできる</li>
+<li>登記申請をオンラインで行う場合は平成25年（2013年）3月31日までは租税特別措置法第84条の5により3000円が減額された</li>
+</ul>
+<p><a href="https://ja.wikipedia.org/wiki/%E4%BD%8F%E6%B0%91%E5%9F%BA%E6%9C%AC%E5%8F%B0%E5%B8%B3%E3%82%AB%E3%83%BC%E3%83%89" target="_blank" rel="external">住民基本台帳カード</a></p>
+<ul>
+<li>市町村又は特別区が発行する、個人の住所、氏名、生年月日、性別、住民票コード等が記録されたICカードである</li>
+<li>住民基本台帳カードは住民からの申請により、住所地の市区町村長が交付する</li>
+<li>ICカードには、写真なしのタイプ（Aタイプ）と、証明写真のあるタイプ（Bタイプ）があり、発行時に選択できる。顔写真のある「Bタイプ」は、個人の身分証明書としても利用される</li>
+</ul>
+<p><a href="https://ja.wikipedia.org/wiki/%E6%9C%89%E9%99%90%E8%B2%AC%E4%BB%BB%E4%BA%8B%E6%A5%AD%E7%B5%84%E5%90%88" target="_blank" rel="external">有限責任事業組合</a></p>
+<ul>
+<li>有限責任事業組合契約に関する法律が制定されて2005年8月1日から施行されることで、利用可能となった新しい事業形態である</li>
+<li>特徴<ul>
+<li>有限責任　出資者たる組合員が出資額の範囲内で責任を負えばよい。</li>
+<li>内部自治原則　組合員の出資額の多寡に囚われることなく、利益の配分や権限などを自由に決めてよい。</li>
+<li>構成員課税　組合レベルでは法人税は課されない。利益配分があった場合は、その出資者に直接課税される。</li>
+</ul>
+</li>
+<li>任意組合との主要な違いは、組合員が有限責任である点、業務範囲に一定の制限がある点である</li>
+<li>合同会社との主要な違いは、法人格を有しない点、組合員が1人となることが認められない点、法人税課税の対象とならない点である</li>
+</ul>
+<p><a href="http://kanrikaikei-sys.com/2014/08/1629/" target="_blank" rel="external">パススルー課税とは何か(SPC・LLP関連)</a></p>
+<ul>
+<li>株式会社Aは1億円稼いだけれども、株式会社Aとしての法人税を取られ、さらに株主個人に対しても所得税が取られているわけです。稼いだ1億円に対して最終的に残ったのは3000万円</li>
+<li>TMKの場合は利益の大半を配当しないとパススルー課税は適用されません。つまり利益を上げても内部留保出来ないわけで、組織として商売を大きくしていくことは基本的に想定されていません</li>
+<li>株式会社に対して出るような許認可はほぼLLPでは取れません</li>
+</ul>
+<p><a href="https://ja.wikipedia.org/wiki/%E8%B3%87%E6%9C%AC%E9%87%91" target="_blank" rel="external">資本金</a></p>
+<ul>
+<li>会社財産が常に変動するのに対し、資本金の額は、法律（会社法）の規定に基づいて算出されるため、現実の会社財産と連動して増減することはない</li>
+<li>日本の会社では、貸借対照表の純資産の部のうち、株式会社にあっては株主資本、持分会社にあっては社員資本を構成するものとされている</li>
+<li>日本では、かつては、会社の設立に際して最低資本金制度はなかったが、1990年（平成2年）改正の旧商法で最低資本金制度が規定され、株式会社は資本金1000万円以上（旧商法第168条の4）、有限会社は資本金300万円以上（旧有限会社法第9条）が必要となった。</li>
+<li>2003年2月に新事業創出促進法が改正され、特例措置として資本金1円での株式会社や有限会社の設立が法的には可能となり、旧商法や旧有限会社法を統合して2006年5月に施行された会社法では、最低資本金制度は廃止された。</li>
+<li>資本金は、会社債権者保護のために、出資された財産のうちの一定金額以上を会社財産として保有させる仕組みである</li>
+<li>資本金の額を自由に減少させることができると、資本維持の原則が骨抜きとなり、会社債権者の利益を損なうおそれがあるため、特別のルールが存在する（資本不変の原則</li>
+<li>日本においては、株式会社が資本金の額を減少させるためには、原則として株主総会の特別決議を要し、債権者保護手続を経なければならない（第447条）</li>
+</ul>
+<p><a href="http://inqup.com/how-to-make-llc" target="_blank" rel="external">合同会社設立｜初めてでも３日でできる！自分で会社を作る為の全手順</a></p>
+<p><a href="https://ja.wikipedia.org/wiki/%E9%9B%BB%E5%AD%90%E7%BD%B2%E5%90%8D" target="_blank" rel="external">電子署名</a></p>
+<p><a href="https://ja.wikipedia.org/wiki/%E6%A0%AA%E5%BC%8F%E4%BC%9A%E7%A4%BE" target="_blank" rel="external">株式会社</a></p>
+<ul>
+<li>細分化された社員権（株式）を有する株主から有限責任の下に資金を調達して株主から委任を受けた経営者が事業を行い、利益を株主に配当する、法人格を有する企業形態である</li>
+<li>特質<ul>
+<li>法人格</li>
+<li>出資者（株主）の有限責任</li>
+<li>持分の自由譲渡性</li>
+<li>取締役会への経営権の委任（所有と経営の分離）</li>
+<li>出資者（株主）による所有</li>
+</ul>
+</li>
+<li>会社は、自然人と同様、それ自体が権利・義務の主体となることができる権利能力を有している。すなわち、会社はその構成員とは区別された法人格 (legal entity) を有する</li>
+<li>会社は自己の名において事業を行い、財産を取得・処分し、契約を締結し、借入れを行うことができる。そして、経営者や株主に対して債権を有する債権者も、別人格である会社の財産に対しては債権を行使することができない</li>
+<li>法人格のコロラリーである。会社に対する債権者（会社債権者）は、会社の財産に対してのみ債権を行使することができ、株主（出資者）の財産に対して債権を行使することはできないという原則を、株主（出資者）の有限責任という</li>
+<li>株主の責任は、引き受けた株式について出資の履行を行ったことで果たされており、会社の債務について会社債権者に対して責任を負わない</li>
+<li>法人格が、会社の財産を株主の債権者から守るものであるのに対し、有限責任は、株主の財産を会社の債権者から守るものであるといえる</li>
+<li>有限責任を認めることによって、会社がある事業を行うために子会社を設立して、事業失敗による損失のリスクを限定することも可能である</li>
+<li>日本の合名会社、合資会社においては、全部又は一部の社員が会社の債務について無限責任を負う</li>
+<li>有限責任の下では、会社債権者にとっては会社の財産だけが責任財産となることから、会社債権者の保護も会社法の課題となる</li>
+<li>株式の自由譲渡性<ul>
+<li>これは、株主がいつでも株式を譲渡して会社関係から離脱することができるようにすることによって、相互に信頼関係のない多数の者から広く資本を集めることができるようにする仕組み</li>
+<li>株式会社では、責任財産を会社に確保するために、出資の払戻しをすることが原則として認められていないため、株主にとっては株式の譲渡は投下資本回収のための重要な手段である</li>
+<li>株式の譲渡を制限する会社については、日本の譲渡制限株式のように一般的な会社法の中の特則として設けられている場合もあれば、かつての日本やヨーロッパ大陸諸国のように閉鎖会社に関する独立の制定法による企業形態（有限会社）が設けられている場合もある</li>
+</ul>
+</li>
+<li>会社において、株主は直接経営を行わず、経営者（取締役会など）に経営権を集中することを、所有と経営の分離といい、これは多数の株主を有する大企業では普遍的に見られる特質である[15]。</li>
+<li>各国とも、株主による投票で取締役が選ばれ、その取締役で構成される取締役会 (board of directors) が、経営上の意思決定及び業務執行の監督を行うというのが典型的な制度である。一方、日々の業務執行は、日本では代表取締役、アメリカでは執行役員 (officer) が行うのが通常である</li>
+<li>株主による所有<ul>
+<li>株主が、会社を最終的にコントロールする権限（取締役を選任し、会社の運営上重要な事項を承認する権限）を有すること</li>
+<li>会社の純利益は株主に帰属することを指して、株主が会社を所有するという</li>
+</ul>
+</li>
+<li>会社は誰のものかという議論は、経営やコーポレート・ガバナンス（企業統治。後述）の重点をどこに置くかについての議論であるといえる<ul>
+<li>会社の目的は、株主の利益を最大化することにあるという立場（株主主権論）から「会社は株主のものである」という主張がされることがある[22]。これに対しては、「会社はコア従業員（長期的に会社に関わる従業員）のものである」という従業員主権論や、「会社はステークホルダー（株主、従業員、顧客、取引先、地域社会といった利害関係者すべて）のものである」という主張もされている</li>
+<li>ある者の利益のために会社を経営すべきであるという主張として理解することには実益があると指摘されている</li>
+</ul>
+</li>
+<li>設立<ul>
+<li>日本での株式会社の設立方法には、発起人（ほっきにん）が全額出資する発起設立と、発起人が一部を出資し、残りの株式を引き受ける者を募集する募集設立の2種類ある</li>
+</ul>
+</li>
+<li>機関<ul>
+<li>法人である株式会社が意思決定をし、行為をするには、自然人や会議体による意思決定・行為が必要である。そのような自然人や会議体を会社の機関という</li>
+<li>監査役や会計監査人などの機関が置かれることもある</li>
+</ul>
+</li>
+<li>株主と株主総会<ul>
+<li>株主は、(1)配当や残余財産の分配など経済的な利益を受ける権利（自益権）と、(2)議決権など会社の経営に参加する権利（共益権）の双方を有する</li>
+<li>日本の株式会社では、毎事業年度の終了後、定時株主総会を招集しなければならないほか、臨時株主総会を招集することができる</li>
+<li>株主総会を招集するのは取締役であるが[注釈 2]、3％以上の議決権を有する株主は、株主総会の招集を請求することができ、取締役が応じない場合は裁判所の許可を得て自ら招集することができる</li>
+<li>取締役・監査役などの機関の選任・解任</li>
+<li>定款変更、合併・会社分割、解散など、会社の基礎的変更に関する事項</li>
+<li>株式併合、配当など、株主の重要な利益に関する事項</li>
+<li>取締役の報酬の決定</li>
+</ul>
+</li>
+<li>定足数は原則として過半数、議決に必要な表決数も原則として過半数とされているが、決議事項によっては、3分の2の特別多数決が必要とされている</li>
+<li>預託<ul>
+<li>株式などの有価証券を預ける行為のことを指す</li>
+</ul>
+</li>
+<li>コーポレート・ガバナンス<ul>
+<li>有と経営が分離した株式会社においては、株主の受け取る利益は経営者に依存しているため、経営者が自己の利益を優先して株主の利益を損なうという危険性が存在する。これは経済学でいうプリンシパル＝エージェント問題</li>
+<li>コーポレート・ガバナンスは、少数株主やその他の利害関係者（ステークホルダー）の保護にも向けられる</li>
+<li>取締役の選任・解任権</li>
+<li>株主総会における投票制度</li>
+</ul>
+</li>
+<li>資金調達<ul>
+<li>会社を設立する際には、前述のように、株式を発行して外部から資金を調達する必要があるが、設立後は、内部資金と外部資金という二つの資金源が考えられる</li>
+<li>事業活動によって得られた利益の内部留保（株主に配当しないで会社内に留保する利益）、又は減価償却の累積による手持ちの資金</li>
+<li>内部資金とは、事業活動によって得られた利益の内部留保（株主に配当しないで会社内に留保する利益）、又は減価償却の累積による手持ちの資金</li>
+<li>外部資本の調達方法には、(1)銀行等の金融機関からの借入れ、(2)新株発行、(3)社債発行などの方法がある</li>
+<li>銀行借入れや社債は、一定の弁済期（償還期）までに元本・利息を弁済（償還）しなければならない債務（デット）であり、貸借対照表上は負債の部に計上される</li>
+<li>株式は、会社にとっては償還や配当の義務を負わない自己資本（エクイティ）であり、貸借対照表上は純資産の部に計上される</li>
+<li>債務の場合、弁済期に支払がされないと債務不履行（デフォルト）になるのに対し、株式の場合には、債務不履行が生じることはない</li>
+<li>社債であっても、償還期限を極めて長くとり、利息の支払を利益に依存することとし、他の債務に劣後することとすれば株式に近づくし、株式でも、非参加的・累積的配当優先株で、かつ償還株式・無議決権株とすれば普通社債に近づくなど、経済学的に見ると、株式と社債（債務）の境界はあいまいである</li>
+</ul>
+</li>
+<li>資本コスト<ul>
+<li>企業が資本を調達・維持するために必要なコスト（費用）のこと</li>
+<li>自己資本に関しては株式に対する配当金やキャピタル・ゲイン、他人資本に関しては借入金に対する支払利息が代表的である</li>
+<li>企業価値評価（DCF法）では、他人資本と自己資本の両方のコストを加味した「加重平均資本コスト（WACC）」が割引率として用いられることがある</li>
+</ul>
+</li>
+<li>コーポレート・ファイナンス<ul>
+<li>自己資本と負債の最適な比率（資本構成）について議論がされてきた</li>
+<li>自己資本の場合、会社の利益に所得課税（日本では法人税）が行われた後、株主が受け取る配当にも所得課税（日本では個人株主であれば所得税）が行われるという二重課税が生じるのに対し、負債の場合、支払利息は会社の課税所得から控除され、債権者側で受け取る利息にのみ所得課税が行われるため、税制上は通常（税率等によるが）デット・ファイナンスの方が資本コストが低くなり、有利であるといえる</li>
+<li>新株発行（増資）<ul>
+<li>(1)既存株主に、持株数に応じて募集株式の割当てを受ける権利を与える株主割当て、(2)既存株主を含め、一般に引受人を募集する公募、(3)特定の第三者に株式を割り当てる第三者割当ての3種類ある</li>
+<li>第三者割当増資は、資金調達のためよりも、業務提携や企業買収、又は買収対抗策などの手段として用いられることが多い</li>
+<li>株主割当ての場合は、既存株主の持株比率も、株式の経済的価値も影響を受けないが、公募又は第三者割当ての場合には、次の2点で株式の希薄化 (dilution) が起こり、既存株主の不利益となる可能性がある<ul>
+<li>持株比率の低下</li>
+<li>株主割当て以外の場合は、株式の本来の価値よりも低い価額で新株が発行されると（有利発行）、1株当たりの経済的価値が下落し、既存株主の不利益となる[</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>社債<ul>
+<li>普通社債と、新株予約権が付けられた新株予約権付社債（ワラント債）があり、転換社債（convertible bond、日本の現行法上は転換社債型新株予約権付社債）は新株予約権付社債の一種である。また、社債には担保付社債 (bond) と無担保社債 (debenture) がある。</li>
+<li>日本では、かつては、社債には必ず担保を付すこととされ（有担保原則）、事実上、ごく一部の大企業にしか社債の発行を認めない適債基準という慣行が行われていたが、現在ではこれらは廃止され、優良企業であれば無担保社債を発行できるようになっている</li>
+</ul>
+</li>
+<li>証券市場</li>
+</ul>
+</li>
+<li>会社の事業を第三者に売却することを、企業買収 (M&amp;A) といい、その法的手法としては、(1)吸収合併、(2)事業譲渡、(3)吸収分割、(4)株式の取得などがある<ul>
+<li>合併<br>  -</li>
+</ul>
+</li>
+</ul>
+<p><a href="https://ja.wikipedia.org/wiki/%E9%87%91%E8%9E%8D%E7%B5%8C%E6%B8%88%E5%AD%A6#.E5.AE.8C.E5.85.A8.E5.B8.82.E5.A0.B4" target="_blank" rel="external">金融経済学</a></p>
+<ul>
+<li>金融商品の価格形成や投資家の投資行動、企業の財務調達や資本構成を分析対象とする、経済学の分野<ul>
+<li>金融商品の価格形成や投資家行動を取り扱う資産価格理論(英: asset pricing theory)、証券投資論(英: investment theory)</li>
+<li>証券投資論(英: investment theory)と企業の財務に関わる事柄を取り扱うコーポレートファイナンス(英: corporate finance)がある</li>
+</ul>
+</li>
+<li>完全市場<ul>
+<li>取引手数料が課せられない。</li>
+<li>利益に対する課税がない。</li>
+<li>情報は無費用で瞬時に経済主体に伝達される。</li>
+<li>金融資産は無限に分割可能で空売り可能である。</li>
+</ul>
+</li>
+</ul>
+<p><a href="https://ja.wikipedia.org/wiki/MM%E7%90%86%E8%AB%96" target="_blank" rel="external">MM理論</a></p>
+<ul>
+<li>資本構造における近代的思考の基礎、完全な市場の下で企業が資金調達を行うときには、資金調達方法の組み合わせ方を変えても企業価値は変化しないという定理</li>
+<li>capital structure irrelevance principle</li>
+</ul>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/blog/tags/company/">company</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/blog/2015/12/29/webrtc-3/" title="webrtc-3" itemprop="url">webrtc-3</a>
   </h1>
   <p class="article-author">By
@@ -1005,81 +1507,9 @@
 
 
 
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/blog/2015/08/06/business0/" title="business0" itemprop="url">business0</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/blog/about" title="akinori nakajima" target="_blank" itemprop="author">akinori nakajima</a>
-		
-  <p class="article-time">
-    <time datetime="2015-08-06T01:39:50.000Z" itemprop="datePublished"> Published 2015-08-06</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h1 id="日経産業">日経産業</h1><p>・円安、海外挙式</p>
-<p>・文章自動要約：ニノー</p>
-<p>・フィリピン就労管理</p>
-<p>・ミールキット宅配：ハローフレッシュ</p>
-<p>・</p>
-<h1 id="事業アイデア６要素">事業アイデア６要素</h1><p>・ハイブリッド化</p>
-<pre><code>技術視点、市場視点、デザイン視点、社会・人間視点を単発かつ複数組み合わせる
-</code></pre><p>・狙う分野と狙わない分野の明示</p>
-<pre><code>絶対にやらない事は？
-やる分野は＝大きなイノベーションが起きていない、規制緩和が起きていないところ？
-</code></pre><p>・カスタマーペインの大きい分野</p>
-<pre><code>切実なニーズが存在
-</code></pre><p>・社会のメガトレンドと一致</p>
-<pre><code>近年の傾向は精神的安らぎ、健康志向、働き方のダイバーシティ、高齢化社会、貧困層ビジネス、
-</code></pre><p>・異業種で同様な課題解決手法</p>
-<pre><code>同じようなニーズが存在しているかどうか
-</code></pre><p>・多様なチームで考える</p>
-<pre><code>成功確率増加？？
-</code></pre>
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/blog/tags/business/">business</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
 
   <nav id="page-nav" class="clearfix">
-    <a class="extend prev" rel="prev" href="/blog/page/2/"><span></span>Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/blog/page/2/">2</a><span class="page-number current">3</span>
+    <a class="extend prev" rel="prev" href="/blog/page/2/"><span></span>Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/blog/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/blog/page/4/">4</a><a class="extend next" rel="next" href="/blog/page/4/">Next<span></span></a>
   </nav>
 
 </div>
@@ -1112,7 +1542,15 @@
 			
 		
 			
+				<li><a href="/blog/tags/hakusho/" title="hakusho">hakusho<sup>1</sup></a></li>
+			
+		
+			
 				<li><a href="/blog/tags/add/" title="add">add<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/blog/tags/memo/" title="memo">memo<sup>1</sup></a></li>
 			
 		
 			
@@ -1120,15 +1558,19 @@
 			
 		
 			
-				<li><a href="/blog/tags/securities-report/" title="securities-report">securities-report<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/blog/tags/hakusho/" title="hakusho">hakusho<sup>1</sup></a></li>
+				<li><a href="/blog/tags/freelance/" title="freelance">freelance<sup>1</sup></a></li>
 			
 		
 			
 				<li><a href="/blog/tags/edtech/" title="edtech">edtech<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/blog/tags/docker/" title="docker">docker<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/blog/tags/securities-report/" title="securities-report">securities-report<sup>1</sup></a></li>
 			
 		
 			
