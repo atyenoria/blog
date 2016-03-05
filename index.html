@@ -77,14 +77,14 @@
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/memo/2016/03/03/todo1/" title="" itemprop="url"></a>
+      <a href="/memo/2016/03/06/todo1/" title="" itemprop="url"></a>
   </h1>
   <p class="article-author">By
        
 		<a href="/memo/about" title="akinori nakajima" target="_blank" itemprop="author">akinori nakajima</a>
 		
   <p class="article-time">
-    <time datetime="2016-03-02T23:53:18.000Z" itemprop="datePublished"> Published 2016-03-03</time>
+    <time datetime="2016-03-05T16:02:26.000Z" itemprop="datePublished"> Published 2016-03-06</time>
     
   </p>
 </header>
@@ -102,9 +102,27 @@
 <li>db backup script</li>
 </ul>
 <h2 id="20160229">20160229</h2><ul>
-<li>local docker database query logs</li>
+<li>local docker databaseyAtteokitai300h query logs</li>
 <li>cosider stable branch work flow</li>
 <li>log database container</li>
+</ul>
+<h2 id="20160304">20160304</h2><ul>
+<li>nginx cache</li>
+<li>redis cluster, sentinel</li>
+<li>start script</li>
+<li>check if galera mysql work</li>
+</ul>
+<h2 id="20160305">20160305</h2><ul>
+<li>handling  command error in container</li>
+<li>check secret key in docker hub</li>
+<li>be sure to secure consul cluster</li>
+<li>make boot bug (/etc/hosts is not linked)</li>
+<li>provisioning error cause<ul>
+<li>curl for consul api</li>
+<li>docker compose up -d</li>
+<li>galera cluster’s bug</li>
+</ul>
+</li>
 </ul>
 
         
@@ -155,7 +173,7 @@
 </header>
     <div class="article-content">
         
-        <ul>
+        <h1 id="shell">shell</h1><ul>
 <li>sudo sed -i -e  ‘$ a  127.0.0.1  l.com’ /etc/hosts</li>
 </ul>
 
@@ -208,6 +226,7 @@
     <div class="article-content">
         
         <p><a href="http://progrium.com/blog/" target="_blank" rel="external">progrium</a></p>
+<p><a href="http://antirez.com/latest/0" target="_blank" rel="external">antirez</a></p>
 
         
         
@@ -449,6 +468,12 @@
 <p><a href="https://github.com/kelseyhightower/confd/tree/master/docs" target="_blank" rel="external">document kelseyhightower/confd</a></p>
 <p><a href="https://mariadb.com/kb/en/mariadb/mariadb-galera-cluster-known-limitations/" target="_blank" rel="external">MariaDB Galera Cluster - Known Limitations</a></p>
 <p><a href="http://stackoverflow.com/questions/31143072/redis-sentinel-vs-clustering" target="_blank" rel="external">Redis sentinel vs clustering</a></p>
+<h1 id="20160304">20160304</h1><p><a href="http://redis.io/topics/sentinel" target="_blank" rel="external">Redis Sentinel Documentation</a></p>
+<p><a href="https://github.com/vulcand/vulcand/issues/9" target="_blank" rel="external">Vulcand Add alternative backends #9</a></p>
+<p><a href="http://vulcand.github.io/" target="_blank" rel="external">vulcand doc</a></p>
+<h1 id="20160305">20160305</h1><p><a href="http://antirez.com/news/79" target="_blank" rel="external">Redis cluster, no longer vaporware.</a></p>
+<p><a href="http://martin.kleppmann.com/2016/02/08/how-to-do-distributed-locking.html" target="_blank" rel="external">How to do distributed locking</a></p>
+<p><a href="http://redis.io/topics/cluster-tutorial" target="_blank" rel="external">Redis cluster tutorial</a></p>
 
         
         
